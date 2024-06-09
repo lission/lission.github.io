@@ -21,7 +21,7 @@ const data: ISiteMetadataResult = {
     },
     {
       name: 'About',
-      url: 'https://lission.github.io/',
+      url: 'https://github.com/lission/lission.github.io',
     },
   ],
 };
