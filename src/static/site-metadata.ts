@@ -12,7 +12,7 @@ interface ISiteMetadataResult {
 const data: ISiteMetadataResult = {
   siteTitle: 'Lission Running Page',
   siteUrl: 'https://lission.github.io/',
-  logo: 'https://i.postimg.cc/1tpZ42tH/Wechat-IMG192.jpg',
+  logo: 'https://ibb.co/1zkHsDs',
   description: 'Personal site and blog',
   navLinks: [
     {
