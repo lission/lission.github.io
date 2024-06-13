@@ -111,7 +111,7 @@ class Poster:
         if self.drawer_type == "plain":
             height = height - 100
             """默认背景黑#1a1a1a"""
-            self.colors["background"] = "#3d3d3d"
+            self.colors["background"] = "#1e272e"
             self.colors["track"] = "red"
             self.colors["special"] = "yellow"
             self.colors["text"] = "#e1ed5e"
