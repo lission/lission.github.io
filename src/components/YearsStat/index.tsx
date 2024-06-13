@@ -15,7 +15,8 @@ const YearsStat = ({ year, onClick }: { year: string, onClick: (_year: string) =
     <div className="w-full lg:w-full pb-16 pr-16 lg:pr-16">
       <section className="pb-0">
         <p className="leading-relaxed">
-          {INFO_MESSAGE(years.length, year)}
+          {/* {INFO_MESSAGE(years.length, year)} */}
+          <div dangerouslySetInnerHTML={{ __html: INFO_MESSAGE(years.length, year) }} />
           <br />
         </p>
       </section>
