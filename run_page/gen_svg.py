@@ -243,7 +243,7 @@ def main():
     # circular not add footer and header
     p.drawer_type = "plain" if is_circular else "title"
     if args.type == "github":
-        p.height = 55 + p.years.count() * 43
+        p.height = 55 + len(p.years.year_set) * 43
     # for special circular
     if is_circular:
         years = p.years.all()[:]

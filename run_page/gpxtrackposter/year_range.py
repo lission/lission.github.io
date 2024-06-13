@@ -28,6 +28,7 @@ class YearRange:
         """Inits YearRange with empty bounds -- to be built after init"""
         self.from_year = None
         self.to_year = None
+        self.year_set = set()
 
     def parse(self, s: str) -> bool:
         """Parse a plaintext range of years into a pair of years
@@ -69,6 +70,8 @@ class YearRange:
             self.from_year = t.year
         elif t.year > self.to_year:
             self.to_year = t.year
+        """改动创建年份集合,优化github svg图片生成"""
+        self.year_set.add(t.year)
 
     def contains(self, t: datetime.datetime) -> bool:
         """Return True if current year range contains t, False if not"""
