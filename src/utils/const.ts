@@ -4,7 +4,7 @@ const MAPBOX_TOKEN =
   // Instead, manually add a new token and apply URL restrictions.
   // (please refer to https://github.com/yihong0618/running_page/issues/643#issuecomment-2042668580)
   // 默认 'pk.eyJ1IjoieWlob25nMDYxOCIsImEiOiJja2J3M28xbG4wYzl0MzJxZm0ya2Fua2p2In0.PNKfkeQwYuyGOTT_x9BJ4Q';
-  'pk.eyJ1IjoibGlzc2lvbiIsImEiOiJjbHg2MTA0NnMxaXFkMnFvb3Z5MW5lMmsxIn0.s0wtO8QYZKSbVePsT6va8w';
+  'sk.eyJ1IjoibGlzc2lvbiIsImEiOiJjbHhlMWU3NmEwN2htMmpxcGh2NzQwcDQ1In0.T1-9dXMDOEg93yvIYGbquQ';
 const MUNICIPALITY_CITIES_ARR = [
   '北京市',
   '上海市',
