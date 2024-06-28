@@ -17,7 +17,7 @@ const data: ISiteMetadataResult = {
   navLinks: [
     {
       name: 'Blog',
-      url: 'https://lission.github.io/',
+      url: 'https://github.com/lission/markDownNote?tab=readme-ov-file#readme',
     },
     {
       name: 'About',
