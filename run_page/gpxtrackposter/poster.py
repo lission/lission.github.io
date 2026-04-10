@@ -47,10 +47,12 @@ class Poster:
         self.length_range_by_date = None
         self.units = "metric"
         self.colors = {
-            "background": "#222222",
-            "text": "#FFFFFF",
-            "special": "#FFFF00",
-            "track": "#4DD2FF",
+            "background": "#FFF9EF",
+            "text": "#4A6A3B",
+            "special": "#F4A261",
+            "special2": "#E76F51",
+            "track": "#456e4a",
+            "track2": "#7cb87f",
         }
         self.special_distance = {"special_distance1": "10", "special_distance2": "20"}
         self.width = 200
@@ -110,11 +112,7 @@ class Poster:
         width = self.width
         if self.drawer_type == "plain":
             height = height - 100
-            """默认背景黑#1a1a1a"""
-            self.colors["background"] = "#1e272e"
-            self.colors["track"] = "red"
-            self.colors["special"] = "yellow"
-            self.colors["text"] = "#e1ed5e"
+            # 使用已设置的 Ghibli 配色，不再覆盖
         d = svgwrite.Drawing(output, (f"{width}mm", f"{height}mm"))
         d.viewbox(0, 0, self.width, height)
         d.add(d.rect((0, 0), (width, height), fill=self.colors["background"]))
@@ -147,14 +145,14 @@ class Poster:
 
     def __draw_header(self, d):
         text_color = self.colors["text"]
-        title_style = "font-size:12px; font-family:Arial; font-weight:bold;"
+        title_style = "font-size:12px; font-family:'Quicksand','Nunito',sans-serif; font-weight:bold;"
         d.add(d.text(self.title, insert=(10, 20), fill=text_color, style=title_style))
 
     def __draw_footer(self, d):
         text_color = self.colors["text"]
-        header_style = "font-size:4px; font-family:Arial"
-        value_style = "font-size:9px; font-family:Arial"
-        small_value_style = "font-size:3px; font-family:Arial"
+        header_style = "font-size:4px; font-family:'Quicksand','Nunito',sans-serif"
+        value_style = "font-size:9px; font-family:'Quicksand','Nunito',sans-serif"
+        small_value_style = "font-size:3px; font-family:'Quicksand','Nunito',sans-serif"
 
         (
             total_length,

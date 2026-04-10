@@ -18,20 +18,21 @@ const LocationStat = ({
   changeCity,
   changeTitle,
 }: ILocationStatProps) => (
-  <div className="w-full pb-16 lg:w-full lg:pr-16">
-    <section className="pb-0">
-      <p className="leading-relaxed">
-        {CHINESE_LOCATION_INFO_MESSAGE_FIRST}
-        .
-        <br />
-        {CHINESE_LOCATION_INFO_MESSAGE_SECOND}
-        .
-        <br />
-        <br />
-        Yesterday you said tomorrow.
-      </p>
+  <div className="w-full pb-8">
+    <section className="mb-6">
+      <div className="ghibli-card p-4 shadow-sm">
+        <p className="leading-relaxed text-ghibli-text">
+          {CHINESE_LOCATION_INFO_MESSAGE_FIRST}
+          .
+          <br />
+          {CHINESE_LOCATION_INFO_MESSAGE_SECOND}
+          .
+          <br />
+          <br />
+          <span className="text-ghibli-accent italic">Yesterday you said tomorrow.</span>
+        </p>
+      </div>
     </section>
-    <hr color="red" />
     <LocationSummary />
     <CitiesStat onClick={changeCity} />
     <PeriodStat onClick={changeTitle} />

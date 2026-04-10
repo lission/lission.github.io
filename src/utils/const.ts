@@ -1,9 +1,4 @@
-// const
 const MAPBOX_TOKEN =
-  // For security reasons, please avoid using the default public token provided by Mapbox as much as possible.
-  // Instead, manually add a new token and apply URL restrictions.
-  // (please refer to https://github.com/yihong0618/running_page/issues/643#issuecomment-2042668580)
-  // 默认 'pk.eyJ1IjoieWlob25nMDYxOCIsImEiOiJja2J3M28xbG4wYzl0MzJxZm0ya2Fua2p2In0.PNKfkeQwYuyGOTT_x9BJ4Q';
   'pk.eyJ1IjoibGlzc2lvbiIsImEiOiJjbHg2MTA0NnMxaXFkMnFvb3Z5MW5lMmsxIn0.s0wtO8QYZKSbVePsT6va8w';
 const MUNICIPALITY_CITIES_ARR = [
   '北京市',
@@ -31,30 +26,22 @@ const MAP_LAYER_LIST = [
 const USE_GOOGLE_ANALYTICS = false;
 const GOOGLE_ANALYTICS_TRACKING_ID = '';
 
-// styling: set to `true` if you want dash-line route
-const USE_DASH_LINE = true;
-// styling: route line opacity: [0, 1]
-const LINE_OPACITY = 0.4;
-// styling: map height
-const MAP_HEIGHT = 600;
-//set to `false` if you want to hide the road label characters
+const USE_DASH_LINE = false;
+const LINE_OPACITY = 0.8;
+const MAP_HEIGHT = 450;
 const ROAD_LABEL_DISPLAY = true;
-//set to `true` if you want to display only the routes without showing the map.
 const PRIVACY_MODE = false;
-//set to `false` if you want to make light off as default, only effect when `PRIVACY_MODE` = false
 const LIGHTS_ON = true;
 
-// IF you outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
 const USE_ANIMATION_FOR_GRID = false;
 const CHINESE_INFO_MESSAGE = (yearLength: number, year: string): string => {
   const yearStr = year === 'Total' ? '所有' : ` ${year} `;
-  return `跑步时便<span style='color: red;'><b>当心</b></span>在跑步，跑步 ${yearLength} 年了，下面展示的是${yearStr}的数据`;
+  return `跑步时便<span style='color: #F4A261;'><b>当心</b></span>在跑步，跑步 ${yearLength} 年了，下面展示的是${yearStr}的数据`;
 };
 const ENGLISH_INFO_MESSAGE = (yearLength: number, year: string): string =>
   `Running Journey with ${yearLength} Years, the table shows year ${year} data`;
 
-// not support English for now
 const CHINESE_LOCATION_INFO_MESSAGE_FIRST =
   '我跑过了一些地方，希望随着时间推移，地图点亮的地方越来越多';
 const CHINESE_LOCATION_INFO_MESSAGE_SECOND = '不要停下来，不要停下奔跑的脚步';
@@ -98,12 +85,7 @@ export {
   LIGHTS_ON,
 };
 
-const nike = 'rgb(224,237,94)'; // if you want change the main color change here src/styles/variables.scss
-const dark_vanilla = 'rgb(228,212,220)';
-
-// If your map has an offset please change this line
-// issues #92 and #198
 export const NEED_FIX_MAP = false;
-export const MAIN_COLOR = nike;
-export const PROVINCE_FILL_COLOR = '#47b8e0';
-export const COUNTRY_FILL_COLOR = dark_vanilla;
+export const MAIN_COLOR = '#456e4a';
+export const PROVINCE_FILL_COLOR = '#c0eec1';
+export const COUNTRY_FILL_COLOR = '#D4EAF7';

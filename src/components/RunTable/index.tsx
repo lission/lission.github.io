@@ -27,7 +27,6 @@ const RunTable = ({
   setRunIndex,
 }: IRunTableProperties) => {
   const [sortFuncInfo, setSortFuncInfo] = useState('');
-  // TODO refactor?
   const sortKMFunc: SortFunc = (a, b) =>
     sortFuncInfo === 'KM' ? a.distance - b.distance : b.distance - a.distance;
   const sortPaceFunc: SortFunc = (a, b) =>
@@ -67,30 +66,35 @@ const RunTable = ({
 
   return (
     <div className={styles.tableContainer}>
-      <table className={styles.runTable} cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            <th />
-            {Array.from(sortFuncMap.keys()).map((k) => (
-              <th key={k} onClick={handleClick}>
-                {k}
-              </th>
+      <div className="ghibli-card overflow-hidden shadow-sm">
+        <div className="px-4 py-3 bg-ghibli-green">
+          <h3 className="font-sans text-xl font-bold text-ghibli-header">Recent Pathways</h3>
+        </div>
+        <table className={styles.runTable} cellSpacing="0" cellPadding="0">
+          <thead>
+            <tr>
+              <th />
+              {Array.from(sortFuncMap.keys()).map((k) => (
+                <th key={k} onClick={handleClick}>
+                  {k}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {runs.map((run, elementIndex) => (
+              <RunRow
+                key={run.run_id}
+                elementIndex={elementIndex}
+                locateActivity={locateActivity}
+                run={run}
+                runIndex={runIndex}
+                setRunIndex={setRunIndex}
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {runs.map((run, elementIndex) => (
-            <RunRow
-              key={run.run_id}
-              elementIndex={elementIndex}
-              locateActivity={locateActivity}
-              run={run}
-              runIndex={runIndex}
-              setRunIndex={setRunIndex}
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

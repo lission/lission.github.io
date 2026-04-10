@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import Stat from '@/components/Stat';
 import useActivities from '@/hooks/useActivities';
 import { formatPace } from '@/utils/utils';
 import useHover from '@/hooks/useHover';
@@ -8,9 +7,7 @@ import { loadSvgComponent } from '@/utils/svgUtils';
 
 const YearStat = ({ year, onClick }: { year: string, onClick: (_year: string) => void }) => {
   let { activities: runs, years } = useActivities();
-  // for hover
   const [hovered, eventHandlers] = useHover();
-  // lazy Component
   const YearSVG = lazy(() => loadSvgComponent(yearStats, `./year_${year}.svg`));
 
   if (years.includes(year)) {
@@ -18,8 +15,8 @@ const YearStat = ({ year, onClick }: { year: string, onClick: (_year: string) =>
   }
   let sumDistance = 0;
   let streak = 0;
-  let pace = 0; // eslint-disable-line no-unused-vars
-  let paceNullCount = 0; // eslint-disable-line no-unused-vars
+  let pace = 0;
+  let paceNullCount = 0;
   let heartRate = 0;
   let heartRateNullCount = 0;
   let totalMetersAvail = 0;
@@ -45,31 +42,60 @@ const YearStat = ({ year, onClick }: { year: string, onClick: (_year: string) =>
   sumDistance = parseFloat((sumDistance / 1000.0).toFixed(1));
   const avgPace = formatPace(totalMetersAvail / totalSecondsAvail);
   const hasHeartRate = !(heartRate === 0);
-  const avgHeartRate = (heartRate / (runs.length - heartRateNullCount)).toFixed(
-    0
-  );
+  const avgHeartRate = (heartRate / (runs.length - heartRateNullCount)).toFixed(0);
+
+  const isTotal = year === 'Total';
+
   return (
     <div
       className="cursor-pointer"
       onClick={() => onClick(year)}
       {...eventHandlers}
     >
-      <section>
-        <Stat value={year} description=" Journey" />
-        <Stat value={runs.length} description=" Runs" />
-        <Stat value={sumDistance} description=" KM" />
-        <Stat value={avgPace} description=" Avg Pace" />
-        <Stat value={`${streak} day`} description=" Streak" />
+      <div className="ghibli-card p-4 shadow-sm mb-4">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xl">{isTotal ? '🏃‍♂️' : '📅'}</span>
+          <h3 className="font-sans text-xl font-bold text-ghibli-text">
+            {isTotal ? 'Total Journey' : `${year} Journey`}
+          </h3>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="bg-ghibli-surface-low rounded-ghibli-sm p-3">
+            <p className="text-ghibli-tan text-xs font-bold uppercase tracking-wider mb-1">Runs</p>
+            <p className="text-xl font-bold text-ghibli-text">{runs.length}</p>
+          </div>
+          
+          <div className="bg-ghibli-surface-low rounded-ghibli-sm p-3">
+            <p className="text-ghibli-tan text-xs font-bold uppercase tracking-wider mb-1">Distance</p>
+            <p className="text-xl font-bold text-ghibli-text">{sumDistance} <span className="text-sm">KM</span></p>
+          </div>
+          
+          <div className="bg-ghibli-surface-low rounded-ghibli-sm p-3">
+            <p className="text-ghibli-tan text-xs font-bold uppercase tracking-wider mb-1">Avg Pace</p>
+            <p className="text-xl font-bold text-ghibli-text">{avgPace}</p>
+          </div>
+          
+          <div className="bg-ghibli-surface-low rounded-ghibli-sm p-3">
+            <p className="text-ghibli-tan text-xs font-bold uppercase tracking-wider mb-1">Streak</p>
+            <p className="text-xl font-bold text-ghibli-text">{streak} <span className="text-sm">Days</span></p>
+          </div>
+        </div>
+        
         {hasHeartRate && (
-          <Stat value={avgHeartRate} description=" Avg Heart Rate" />
+          <div className="mt-3 bg-ghibli-surface-low rounded-ghibli-sm p-3 flex items-center gap-2">
+            <span className="text-lg">❤️</span>
+            <p className="text-ghibli-tan text-xs font-bold uppercase">Avg HR:</p>
+            <p className="text-lg font-bold text-ghibli-text">{avgHeartRate} <span className="text-sm">BPM</span></p>
+          </div>
         )}
-      </section>
-      {year !== 'Total' && hovered && (
+      </div>
+      
+      {!isTotal && hovered && (
         <Suspense fallback="loading...">
           <YearSVG className="my-4 h-4/6 w-4/6 border-0 p-0" />
         </Suspense>
       )}
-      <hr color="red" />
     </div>
   );
 };
