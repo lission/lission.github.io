@@ -3,8 +3,14 @@ import random
 import string
 import time
 
-import geopy
-from geopy.geocoders import Nominatim
+# geopy is only used for optional reverse-geocoding; guard it so the DB-based
+# generation flow works without it installed.
+try:
+    import geopy
+    from geopy.geocoders import Nominatim
+except ImportError:  # pragma: no cover
+    geopy = None
+    Nominatim = None
 from sqlalchemy import Column, Float, Integer, Interval, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -18,9 +24,12 @@ def randomword():
     return "".join(random.choice(letters) for i in range(4))
 
 
-geopy.geocoders.options.default_user_agent = "my-application"
-# reverse the location (lan, lon) -> location detail
-g = Nominatim(user_agent=randomword())
+if Nominatim is not None:
+    geopy.geocoders.options.default_user_agent = "my-application"  # noqa: F821
+    # reverse the location (lan, lon) -> location detail
+    g = Nominatim(user_agent=randomword())
+else:
+    g = None
 
 
 ACTIVITY_KEYS = [

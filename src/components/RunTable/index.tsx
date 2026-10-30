@@ -66,9 +66,9 @@ const RunTable = ({
 
   return (
     <div className={styles.tableContainer}>
-      <div className="ghibli-card overflow-hidden shadow-sm">
-        <div className="px-4 py-3 bg-ghibli-green">
-          <h3 className="font-sans text-xl font-bold text-ghibli-header">Recent Pathways</h3>
+      <div className="card overflow-hidden shadow-sm">
+        <div className="px-4 py-3 bg-accent">
+          <h3 className="font-sans text-xl font-bold text-white">Recent Pathways</h3>
         </div>
         <table className={styles.runTable} cellSpacing="0" cellPadding="0">
           <thead>

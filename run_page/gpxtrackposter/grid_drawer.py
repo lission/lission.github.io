@@ -71,7 +71,7 @@ class GridDrawer(TracksDrawer):
                 points=line,
                 stroke=color,
                 fill="none",
-                stroke_width=0.5,
+                stroke_width=0.6,
                 stroke_linejoin="round",
                 stroke_linecap="round",
             )

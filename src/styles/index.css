@@ -3,25 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --ghibli-blue: #D4EAF7;
-  --ghibli-green: #C8E0C3;
-  --ghibli-text: #4A6A3B;
-  --ghibli-accent: #F4A261;
-  --ghibli-tan: #D9B48B;
-  --ghibli-nav: #7A6A5C;
-  --ghibli-card: #FFF9EF;
-  --ghibli-hover: #F4E8D8;
-  --ghibli-header: #3A5A2A;
-  --ghibli-footer: #5C4B3A;
-  --ghibli-surface: #fffbff;
-  --ghibli-surface-low: #fff9e9;
-  --ghibli-surface-high: #efe9cc;
-  --ghibli-primary: #456e4a;
-  --ghibli-primary-container: #c0eec1;
-  --ghibli-secondary: #4a6976;
-  --ghibli-tertiary: #905625;
-  --ghibli-tertiary-container: #f5ab72;
-  --ghibli-outline: #bfba9f;
+  --paper: #fbfbfa;
+  --ink: #1c1c1e;
+  --muted: #6b6b70;
+  --line: rgba(0, 0, 0, 0.09);
+  --accent: #2fb36d;
+  --accent-ink: #157f47;
+  --surface: #ffffff;
+  --surface-soft: #f3f3f1;
+  --on-accent: #ffffff;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: light;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/assets/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
 img::selection {
@@ -36,24 +35,11 @@ body {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Quicksand', 'Nunito', 'LXGW WenKai', sans-serif;
-  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
+  font-family: 'Geist', 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
   position: relative;
   min-height: 100vh;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.15;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 50 Q 25 40 35 45 T 50 45 T 65 55 T 80 50' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M10 70 Q 20 60 30 70 T 50 70 T 70 80' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E");
-  background-size: 400px;
-  z-index: -1;
 }
 
 iframe {
@@ -62,26 +48,86 @@ iframe {
 
 hr {
   border-top: none;
-  border-bottom: 2px dotted var(--ghibli-accent);
+  border-bottom: 1px solid var(--line);
   margin: 1.5rem 0;
-  opacity: 0.6;
 }
 
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-.ghibli-card {
-  background-color: var(--ghibli-card);
-  border-radius: 28px;
-  transition: all 0.2s ease;
+/* Hop-style card: white surface, hairline border, restrained radius. No heavy shadow. */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  animation: fadeUp 0.55s var(--ease) both;
 }
 
-.ghibli-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+.card:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shadow-card, 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px -12px rgba(20, 40, 80, 0.12));
 }
+
+/* YearStat card: no entrance/hover animation (clicking it must not flicker). */
+.yearstat-card {
+  animation: none;
+  transition: none;
+}
+.yearstat-card:hover {
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+/* Hop-style entrance: subtle upward translate + fade-in. */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating pill header: Hop-style capsule nav, single centered row. */
+.nav-pill {
+  animation: fadeUp 0.5s var(--ease) both;
+}
+
+/* Gentle stagger for grids of small cards (location summary, cities, periods). */
+.grid > .card:nth-child(1) {
+  animation-delay: 0.03s;
+}
+.grid > .card:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.grid > .card:nth-child(3) {
+  animation-delay: 0.11s;
+}
+.grid > .card:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.grid > .card:nth-child(5) {
+  animation-delay: 0.19s;
+}
+.grid > .card:nth-child(n + 6) {
+  animation-delay: 0.23s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .nav-pill {
+    animation: none;
+  }
+}
+
+/* NOTE: the data-viz SVGs (github/grid/year) are now styled directly by the
+   running_page generator (see run_page/.../*.py) with the Hop palette, so no
+   in-browser recoloring is needed here. */
 
 ::selection {
-  background-color: rgba(244, 162, 97, 0.3);
+  background-color: rgba(47, 179, 109, 0.22);
 }

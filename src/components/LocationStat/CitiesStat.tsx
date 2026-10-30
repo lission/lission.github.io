@@ -1,26 +1,28 @@
 import useActivities from '@/hooks/useActivities';
+import { BuildingIcon } from '@/components/icons';
 
 const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
   const { cities } = useActivities();
 
   const citiesArr = Object.entries(cities);
   citiesArr.sort((a, b) => b[1] - a[1]);
-  
+
   return (
     <div className="mb-6">
-      <h4 className="font-sans text-lg font-bold text-ghibli-text mb-3 flex items-center gap-2">
-        🏙️ 城市足迹
+      <h4 className="font-sans text-lg font-bold text-ink mb-3 flex items-center gap-2">
+        <BuildingIcon size={20} className="text-ink" />
+        城市足迹
       </h4>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="flex flex-wrap gap-2">
         {citiesArr.map(([city, distance]) => (
-          <div
+          <button
             key={city}
-            className="ghibli-card p-3 shadow-sm cursor-pointer hover:shadow-ghibli"
             onClick={() => onClick(city)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1.5 text-sm text-ink transition-all duration-200 hover:border-accent/40 hover:text-accentInk"
           >
-            <p className="font-semibold text-ghibli-text">{city}</p>
-            <p className="text-sm text-ghibli-accent">{(distance / 1000).toFixed(0)} KM</p>
-          </div>
+            {city}
+            <span className="text-xs text-accentInk">{(distance / 1000).toFixed(0)}km</span>
+          </button>
         ))}
       </div>
     </div>

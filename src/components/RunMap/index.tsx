@@ -1,5 +1,5 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
-import React, {useRef, useCallback, useState} from 'react';
+import React, {useRef, useCallback, useState, useEffect} from 'react';
 import Map, {Layer, Source, FullscreenControl, NavigationControl, MapRef} from 'react-map-gl';
 import {MapInstance} from "react-map-gl/src/types/lib";
 import useActivities from '@/hooks/useActivities';
@@ -12,7 +12,6 @@ import {
   COUNTRY_FILL_COLOR,
   USE_DASH_LINE,
   LINE_OPACITY,
-  MAP_HEIGHT,
   PRIVACY_MODE,
   LIGHTS_ON,
 } from '@/utils/const';
@@ -32,6 +31,7 @@ interface IRunMapProps {
   changeYear: (_year: string) => void;
   geoData: FeatureCollection<RPGeometry>;
   thisYear: string;
+  flyTarget: IViewState | null;
 }
 
 const RunMap = ({
@@ -41,11 +41,32 @@ const RunMap = ({
   changeYear,
   geoData,
   thisYear,
+  flyTarget,
 }: IRunMapProps) => {
   const { countries, provinces } = useActivities();
   const mapRef = useRef<MapRef>();
   const [lights, setLights] = useState(PRIVACY_MODE ? false : LIGHTS_ON);
   const keepWhenLightsOff = ['runs2']
+
+  // Smoothly fly to a selected run when flyTarget changes (no hard jump).
+  useEffect(() => {
+    if (!flyTarget || !mapRef.current) {
+      return;
+    }
+    const { longitude, latitude, zoom } = flyTarget;
+    if (
+      typeof longitude !== 'number' ||
+      typeof latitude !== 'number' ||
+      typeof zoom !== 'number'
+    ) {
+      return;
+    }
+    mapRef.current.getMap().flyTo({
+      center: [longitude, latitude],
+      zoom,
+      duration: 1200,
+    });
+  }, [flyTarget]);
   function switchLayerVisibility(map: MapInstance, lights: boolean) {
     const styleJson = map.getStyle();
     styleJson.layers.forEach((it: { id: string; }) => {
@@ -115,7 +136,7 @@ const RunMap = ({
   }, []);
   const style: React.CSSProperties = {
     width: '100%',
-    height: MAP_HEIGHT,
+    height: '100%',
   };
   const fullscreenButton: React.CSSProperties = {
     position: 'absolute',
@@ -125,7 +146,8 @@ const RunMap = ({
   };
 
   return (
-    <div className="bg-white/40 backdrop-blur-md rounded-ghibli p-2 shadow-sm border border-white/60">
+    <div className="bg-white/40 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-white/60 h-full flex flex-col">
+      <div className="flex-1 min-h-0 rounded-xl overflow-hidden">
       <Map
         {...viewState}
         onMove={onMove}
@@ -158,7 +180,7 @@ const RunMap = ({
             id="runs2"
             type="line"
             paint={{
-              'line-color': '#456e4a',
+              'line-color': '#2fb36d',
               'line-width': isBigMap && lights ? 1.5 : 2.5,
               'line-dasharray': dash,
               'line-opacity': isSingleRun || isBigMap || !lights ? 1 : LINE_OPACITY,
@@ -183,6 +205,7 @@ const RunMap = ({
         {!PRIVACY_MODE && <LightsControl setLights={setLights} lights={lights}/>}
         <NavigationControl showCompass={false} position={'bottom-right'} style={{opacity: 0.5}}/>
       </Map>
+      </div>
     </div>
   );
 };

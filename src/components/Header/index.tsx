@@ -5,28 +5,27 @@ const Header = () => {
   const { logo, siteUrl, navLinks } = useSiteMetadata();
 
   return (
-    <header className="mb-4">
-      <div className="flex flex-col md:flex-row justify-between items-center w-full px-6 py-3">
-        <div className="flex items-center gap-4">
-          <Link to={siteUrl}>
-            <picture>
-              <img 
-                className="h-12 w-12 rounded-full border-2 border-ghibli-green shadow-md" 
-                alt="logo" 
-                src={logo} 
-              />
-            </picture>
-          </Link>
-          <h1 className="font-sans text-2xl md:text-[2.2rem] font-bold text-ghibli-text border-b-2 border-dotted border-ghibli-accent leading-tight">
+    <header className="flex justify-center pt-5 pb-3">
+      <div className="nav-pill inline-flex items-center gap-3 rounded-full border border-line bg-surface px-4 py-2 shadow-sm">
+        <Link to={siteUrl} className="flex items-center gap-2.5">
+          <picture>
+            <img
+              className="h-8 w-8 rounded-full border border-line"
+              alt="logo"
+              src={logo}
+            />
+          </picture>
+          <h1 className="font-sans text-lg font-bold text-ink leading-none">
             跑步日记
           </h1>
-        </div>
-        <nav className="hidden md:flex items-center gap-8 font-semibold mt-4 md:mt-0">
+        </Link>
+        <span className="h-5 w-px bg-line" aria-hidden="true" />
+        <nav className="flex items-center gap-5 font-semibold">
           {navLinks.map((n, i) => (
             <a
               key={i}
               href={n.url}
-              className="text-ghibli-nav hover:text-ghibli-accent transition-all duration-200 hover:-translate-y-0.5"
+              className="text-sm text-muted hover:text-accentInk transition-all duration-200 hover:-translate-y-0.5"
             >
               {n.name}
             </a>

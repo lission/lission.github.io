@@ -14,7 +14,7 @@ from typing import List, Optional
 import svgwrite
 
 from .exceptions import PosterError
-from .poster import Poster
+from .poster import Poster, FONT
 from .track import Track
 from .tracks_drawer import TracksDrawer
 from .utils import compute_grid
@@ -41,7 +41,7 @@ class CircularDrawer(TracksDrawer):
         Note that these can be overridden via arguments when calling."""
         super().__init__(the_poster)
         self._rings = False
-        self._ring_color = "darkgrey"
+        self._ring_color = "#d8d8d2"
 
     def create_args(self, args_parser: argparse.ArgumentParser):
         """Add arguments to the parser"""
@@ -57,7 +57,7 @@ class CircularDrawer(TracksDrawer):
             dest="circular_ring_color",
             metavar="COLOR",
             type=str,
-            default="darkgrey",
+            default="#d8d8d2",
             help="Color of distance rings.",
         )
 
@@ -104,11 +104,11 @@ class CircularDrawer(TracksDrawer):
 
         year_style = (
             f"dominant-baseline: central; font-size:{min_size * 4.0 / 80.0}px; "
-            f"font-family:'Quicksand','Nunito',sans-serif;"
+            f"font-family:{FONT}; font-weight:600;"
         )
         month_style = (
             f"font-size:{min_size * 3.0 / 80.0}px; "
-            f"font-family:'Quicksand','Nunito',sans-serif;"
+            f"font-family:{FONT};"
         )
 
         dr.add(

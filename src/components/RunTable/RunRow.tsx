@@ -51,9 +51,9 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IR
       key={run.start_date_local}
       onClick={handleClick}
     >
-      <td className="font-medium text-ghibli-text">{titleForRun(run)}</td>
-      <td className="font-bold text-ghibli-text">{distance}</td>
-      {paceParts && <td className="italic text-ghibli-accent">{paceParts}</td>}
+      <td className="font-medium text-ink">{titleForRun(run)}</td>
+      <td className="font-bold text-ink whitespace-nowrap">{distance}</td>
+      {paceParts && <td className="italic text-accentInk">{paceParts}</td>}
       <td>{heartRate && heartRate.toFixed(0)}</td>
       <td>{runTime}</td>
       <td className={styles.runDate}>{run.start_date_local}</td>

@@ -37,7 +37,7 @@ const IS_CHINESE = true;
 const USE_ANIMATION_FOR_GRID = false;
 const CHINESE_INFO_MESSAGE = (yearLength: number, year: string): string => {
   const yearStr = year === 'Total' ? '所有' : ` ${year} `;
-  return `跑步时便<span style='color: #F4A261;'><b>当心</b></span>在跑步，跑步 ${yearLength} 年了，下面展示的是${yearStr}的数据`;
+  return `跑步时便<span style='color: #157f47;'><b>当心</b></span>在跑步，跑步 ${yearLength} 年了，下面展示的是${yearStr}的数据`;
 };
 const ENGLISH_INFO_MESSAGE = (yearLength: number, year: string): string =>
   `Running Journey with ${yearLength} Years, the table shows year ${year} data`;
@@ -86,6 +86,6 @@ export {
 };
 
 export const NEED_FIX_MAP = false;
-export const MAIN_COLOR = '#456e4a';
-export const PROVINCE_FILL_COLOR = '#c0eec1';
-export const COUNTRY_FILL_COLOR = '#D4EAF7';
+export const MAIN_COLOR = '#2fb36d';
+export const PROVINCE_FILL_COLOR = '#cdeed8';
+export const COUNTRY_FILL_COLOR = '#e8efea';

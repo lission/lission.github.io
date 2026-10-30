@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Layout from '@/components/Layout';
-import LocationStat from '@/components/LocationStat';
 import RunMap from '@/components/RunMap';
 import RunTable from '@/components/RunTable';
 import SVGStat from '@/components/SVGStat';
-import YearsStat from '@/components/YearsStat';
+import YearNav from '@/components/YearNav';
+import YearStat from '@/components/YearStat';
+import LocationSummary from '@/components/LocationStat/LocationSummary';
+import CitiesStat from '@/components/LocationStat/CitiesStat';
+import PeriodStat from '@/components/LocationStat/PeriodStat';
 import useActivities from '@/hooks/useActivities';
 import useSiteMetadata from '@/hooks/useSiteMetadata';
-import { IS_CHINESE } from '@/utils/const';
+import { INFO_MESSAGE } from '@/utils/const';
 import {
   Activity,
   IViewState,
@@ -26,7 +29,7 @@ import {
 
 const Index = () => {
   const { siteTitle } = useSiteMetadata();
-  const { activities, thisYear } = useActivities();
+  const { activities, thisYear, years } = useActivities();
   const [year, setYear] = useState(thisYear);
   const [runIndex, setRunIndex] = useState(-1);
   const [runs, setActivity] = useState(
@@ -40,6 +43,7 @@ const Index = () => {
   const [viewState, setViewState] = useState<IViewState>({
     ...bounds,
   });
+  const [flyTarget, setFlyTarget] = useState<IViewState | null>(null);
 
   const changeByItem = (
     item: string,
@@ -55,7 +59,24 @@ const Index = () => {
     setTitle(`${item} ${name} Running Heatmap`);
   };
 
+  // Restore the full set of routes for the current year on the map.
+  // Triggered when re-selecting the already-active year (e.g. clicking the
+  // "20xx Journey" overview card after drilling into a single Recent Pathways
+  // row). One-shot geoData swap + smooth flyTo: no progressive redraw
+  // animation and no hard viewState jump, so nothing flickers.
+  const showFullYearRoutes = () => {
+    const yearGeo = geoJsonForRuns(runs);
+    setRunIndex(-1);
+    setGeoData(yearGeo);
+    setTitle(`${year} Year Running Heatmap`);
+    setFlyTarget(getBoundsForGeoData(yearGeo));
+  };
+
   const changeYear = (y: string) => {
+    if (y === year) {
+      showFullYearRoutes();
+      return;
+    }
     setYear(y);
 
     if ((viewState.zoom ?? 0) > 3 && bounds) {
@@ -95,16 +116,15 @@ const Index = () => {
     setGeoData(geoJsonForRuns(selectedRuns));
     setTitle(titleForShow(lastRun));
     clearInterval(intervalId);
-    scrollToMap();
+
+    // Smoothly fly to the selected run (RunMap performs the animated flyTo).
+    setFlyTarget(getBoundsForGeoData(geoJsonForRuns(selectedRuns)));
   };
 
   useEffect(() => {
     setViewState({
-      ...bounds,
+      ...getBoundsForGeoData(geoJsonForRuns(runs)),
     });
-  }, [geoData]);
-
-  useEffect(() => {
     const runsNum = runs.length;
     const sliceNume = runsNum >= 20 ? runsNum / 20 : 1;
     let i = sliceNume;
@@ -166,19 +186,20 @@ const Index = () => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <YearNav year={year} onClick={changeYear} />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         <div className="lg:col-span-1">
-          {(viewState.zoom ?? 0) <= 3 && IS_CHINESE ? (
-            <LocationStat
-              changeYear={changeYear}
-              changeCity={changeCity}
-              changeTitle={changeTitle}
+          <section className="card p-4 shadow-sm mb-6">
+            <div
+              className="leading-relaxed text-ink"
+              dangerouslySetInnerHTML={{ __html: INFO_MESSAGE(years.length, year) }}
             />
-          ) : (
-            <YearsStat year={year} onClick={changeYear} />
-          )}
+          </section>
+          <LocationSummary />
+          <CitiesStat onClick={changeCity} />
+          <PeriodStat onClick={changeTitle} />
         </div>
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2">
           <RunMap
             title={title}
             viewState={viewState}
@@ -186,20 +207,33 @@ const Index = () => {
             setViewState={setViewState}
             changeYear={changeYear}
             thisYear={year}
+            flyTarget={flyTarget}
           />
-          {year === 'Total' ? (
-            <SVGStat />
-          ) : (
-            <RunTable
-              runs={runs}
-              locateActivity={locateActivity}
-              setActivity={setActivity}
-              runIndex={runIndex}
-              setRunIndex={setRunIndex}
-            />
-          )}
         </div>
       </div>
+      <div
+        className={
+          year === 'Total'
+            ? 'mt-6'
+            : 'mt-6 mx-auto w-full max-w-2xl flex flex-col items-center'
+        }
+      >
+        <YearStat year={year} onClick={changeYear} defaultExpanded />
+        {year !== 'Total' && (
+          <RunTable
+            runs={runs}
+            locateActivity={locateActivity}
+            setActivity={setActivity}
+            runIndex={runIndex}
+            setRunIndex={setRunIndex}
+          />
+        )}
+      </div>
+      {year === 'Total' && (
+        <div className="mt-6">
+          <SVGStat />
+        </div>
+      )}
       <Analytics />
     </Layout>
   );

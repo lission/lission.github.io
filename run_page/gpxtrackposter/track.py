@@ -13,11 +13,23 @@ import gpxpy as mod_gpxpy
 import lxml
 import polyline
 import s2sphere as s2
-from garmin_fit_sdk import Decoder, Stream
-from garmin_fit_sdk.util import FIT_EPOCH_S
 from polyline_processor import filter_out
-from rich import print
-from tcxreader.tcxreader import TCXReader
+
+# Optional, format-specific dependencies. Guarded so the DB-based generation
+# path (--from-db) works without every GPX/TCX/FIT decoder installed.
+try:
+    from garmin_fit_sdk import Decoder, Stream
+    from garmin_fit_sdk.util import FIT_EPOCH_S
+except ImportError:  # pragma: no cover
+    Decoder = Stream = FIT_EPOCH_S = None
+try:
+    from rich import print  # noqa: A004 - intentionally shadow builtin when present
+except ImportError:
+    pass
+try:
+    from tcxreader.tcxreader import TCXReader
+except ImportError:  # pragma: no cover
+    TCXReader = None
 
 from .exceptions import TrackLoadError
 from .utils import parse_datetime_to_local

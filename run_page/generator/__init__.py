@@ -3,9 +3,15 @@ import os
 import sys
 
 import arrow
-import stravalib
 from gpxtrackposter import track_loader
 from sqlalchemy import func
+
+# stravalib is only needed by the Strava sync path; guard it so the DB-based
+# generation flow works without the full sync dependency stack installed.
+try:
+    import stravalib
+except ImportError:  # pragma: no cover
+    stravalib = None
 
 from polyline_processor import filter_out
 

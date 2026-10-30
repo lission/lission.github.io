@@ -18,20 +18,20 @@ const Stat = ({
   label,
 }: IStatProperties) => (
   <div 
-    className={`ghibli-card p-3 shadow-sm cursor-pointer hover:shadow-ghibli ${className}`} 
+    className={`card p-3 shadow-sm cursor-pointer hover:shadow-card ${className}`} 
     onClick={onClick}
   >
     {label && (
-      <p className="text-ghibli-tan text-xs font-bold uppercase tracking-wider mb-1">
+      <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1">
         {label}
       </p>
     )}
     <div className="flex items-baseline gap-1">
-      <span className={`text-2xl font-bold text-ghibli-text`}>
+      <span className={`text-2xl font-bold text-ink`}>
         {intComma(value.toString())}
       </span>
       {description && (
-        <span className="text-sm font-semibold text-ghibli-accent">{description}</span>
+        <span className="text-sm font-semibold text-accentInk">{description}</span>
       )}
     </div>
   </div>

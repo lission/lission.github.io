@@ -13,6 +13,9 @@ from .value_range import ValueRange
 from .xy import XY
 from .year_range import YearRange
 
+# Clean neutral sans that matches the web page (Geist with system fallbacks).
+FONT = "'Geist', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
+
 
 class Poster:
     """Create a poster from track data.
@@ -46,13 +49,18 @@ class Poster:
         self.length_range = None
         self.length_range_by_date = None
         self.units = "metric"
+        self.hide_chrome = False  # when True, skip the in-SVG header/footer (web embeds)
+        # Hop-style palette: paper/transparent surface, ink text, single restrained
+        # green intensity scale (light mint -> brand green), deep green for long runs.
         self.colors = {
-            "background": "#FFF9EF",
-            "text": "#4A6A3B",
-            "special": "#F4A261",
-            "special2": "#E76F51",
-            "track": "#456e4a",
-            "track2": "#7cb87f",
+            "background": "none",
+            "text": "#1c1c1e",
+            "text_muted": "#6b6b70",
+            "empty": "#e9e9e4",
+            "special": "#157f47",
+            "special2": "#0f6b3c",
+            "track": "#cdeedd",
+            "track2": "#2fb36d",
         }
         self.special_distance = {"special_distance1": "10", "special_distance2": "20"}
         self.width = 200
@@ -105,6 +113,15 @@ class Poster:
             length = sum([t.length for t in tracks])
             self.length_range_by_date.extend(length)
 
+        # Year-to-total-distance map, used by the github (calendar) drawer.
+        # Computed here (not only in __draw_footer) so it is available even when
+        # the in-SVG footer is hidden.
+        self.total_length_year_dict = defaultdict(int)
+        for t in tracks:
+            if not self.years.contains(t.start_time_local):
+                continue
+            self.total_length_year_dict[t.start_time_local.year] += t.length
+
     def draw(self, drawer, output):
         """Set the Poster's drawer and draw the tracks."""
         self.tracks_drawer = drawer
@@ -115,8 +132,9 @@ class Poster:
             # 使用已设置的 Ghibli 配色，不再覆盖
         d = svgwrite.Drawing(output, (f"{width}mm", f"{height}mm"))
         d.viewbox(0, 0, self.width, height)
-        d.add(d.rect((0, 0), (width, height), fill=self.colors["background"]))
-        if not self.drawer_type == "plain":
+        if self.colors["background"] != "none":
+            d.add(d.rect((0, 0), (width, height), fill=self.colors["background"]))
+        if self.drawer_type != "plain" and not self.hide_chrome:
             self.__draw_header(d)
             self.__draw_footer(d)
             self.__draw_tracks(d, XY(width - 20, height - 30 - 30), XY(10, 30))
@@ -145,14 +163,14 @@ class Poster:
 
     def __draw_header(self, d):
         text_color = self.colors["text"]
-        title_style = "font-size:12px; font-family:'Quicksand','Nunito',sans-serif; font-weight:bold;"
+        title_style = f"font-size:12px; font-family:{FONT}; font-weight:600;"
         d.add(d.text(self.title, insert=(10, 20), fill=text_color, style=title_style))
 
     def __draw_footer(self, d):
-        text_color = self.colors["text"]
-        header_style = "font-size:4px; font-family:'Quicksand','Nunito',sans-serif"
-        value_style = "font-size:9px; font-family:'Quicksand','Nunito',sans-serif"
-        small_value_style = "font-size:3px; font-family:'Quicksand','Nunito',sans-serif"
+        text_color = self.colors["text_muted"]
+        header_style = f"font-size:4px; font-family:{FONT}; letter-spacing:0.08em;"
+        value_style = f"font-size:9px; font-family:{FONT};"
+        small_value_style = f"font-size:3px; font-family:{FONT};"
 
         (
             total_length,

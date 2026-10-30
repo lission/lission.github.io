@@ -5,7 +5,7 @@ import locale
 import svgwrite
 
 from .exceptions import PosterError
-from .poster import Poster
+from .poster import Poster, FONT
 from .tracks_drawer import TracksDrawer
 from .utils import format_float
 from .xy import XY
@@ -21,13 +21,9 @@ class GithubDrawer(TracksDrawer):
         if self.poster.tracks is None:
             raise PosterError("No tracks to draw")
         year_size = 200 * 4.0 / 80.0
-        year_style = (
-            f"font-size:{year_size}px; font-family:'Quicksand','Nunito',sans-serif;"
-        )
-        year_length_style = f"font-size:{110 * 3.0 / 80.0}px; font-family:'Quicksand','Nunito',sans-serif;"
-        month_names_style = (
-            f"font-size:2.5px; font-family:'Quicksand','Nunito',sans-serif"
-        )
+        year_style = f"font-size:{year_size}px; font-family:{FONT}; font-weight:600;"
+        year_length_style = f"font-size:{110 * 3.0 / 80.0}px; font-family:{FONT}; font-weight:600;"
+        month_names_style = f"font-size:2.5px; font-family:{FONT};"
         total_length_year_dict = self.poster.total_length_year_dict
 
         # 将set转换为list
@@ -111,7 +107,7 @@ class GithubDrawer(TracksDrawer):
                     dr.text(
                         f"{name}",
                         insert=(offset.tuple()[0] + 15.5 * num, offset.tuple()[1] + 14),
-                        fill=self.poster.colors["text"],
+                        fill=self.poster.colors["text_muted"],
                         style=month_names_style,
                     )
                 )
@@ -125,7 +121,7 @@ class GithubDrawer(TracksDrawer):
                     if int(github_rect_day.year) > year:
                         break
                     rect_y += 3.5
-                    color = "#D9B48B"
+                    color = self.poster.colors.get("empty", "#e9e9e4")
                     date_title = str(github_rect_day)
                     if date_title in self.poster.tracks_by_date:
                         tracks = self.poster.tracks_by_date[date_title]
@@ -143,7 +139,7 @@ class GithubDrawer(TracksDrawer):
                         str_length = format_float(self.poster.m2u(length))
                         date_title = f"{date_title} {str_length} {km_or_mi}"
 
-                    rect = dr.rect((rect_x, rect_y), dom, fill=color)
+                    rect = dr.rect((rect_x, rect_y), dom, fill=color, rx=0.7, ry=0.7)
                     rect.set_desc(title=date_title)
                     dr.add(rect)
                     github_rect_day += datetime.timedelta(1)

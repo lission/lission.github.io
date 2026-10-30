@@ -90,44 +90,53 @@ def main():
         dest="background_color",
         metavar="COLOR",
         type=str,
-        default="#222222",
-        help='Background color of poster (default: "#222222").',
+        default="none",
+        help='Background color of poster (default: "none" = transparent).',
     )
     args_parser.add_argument(
         "--track-color",
         dest="track_color",
         metavar="COLOR",
         type=str,
-        default="#4DD2FF",
-        help='Color of tracks (default: "#4DD2FF").',
+        default="#2fb36d",
+        help='Color of tracks (default: "#2fb36d", brand green = high intensity).',
     )
     args_parser.add_argument(
         "--track-color2",
         dest="track_color2",
         metavar="COLOR",
         type=str,
-        help="Secondary color of tracks (default: none).",
+        default="#cdeedd",
+        help="Secondary color of tracks (default: light mint = low intensity).",
     )
     args_parser.add_argument(
         "--text-color",
         dest="text_color",
         metavar="COLOR",
         type=str,
-        default="#FFFFFF",
-        help='Color of text (default: "#FFFFFF").',
+        default="#1c1c1e",
+        help='Color of text (default: "#1c1c1e", ink).',
     )
     args_parser.add_argument(
         "--special-color",
         dest="special_color",
         metavar="COLOR",
-        default="#FFFF00",
-        help='Special track color (default: "#FFFF00").',
+        default="#157f47",
+        help='Special track color (default: "#157f47", deep green).',
     )
     args_parser.add_argument(
         "--special-color2",
         dest="special_color2",
         metavar="COLOR",
-        help="Secondary color of special tracks (default: none).",
+        default="#0f6b3c",
+        help="Secondary color of special tracks (default: #0f6b3c).",
+    )
+    args_parser.add_argument(
+        "--empty-color",
+        dest="empty_color",
+        metavar="COLOR",
+        default="#e9e9e4",
+        help="Color of empty calendar cells (default: #e9e9e4).",
     )
     args_parser.add_argument(
         "--units",
@@ -237,11 +246,15 @@ def main():
         "special": args.special_color,
         "special2": args.special_color2 or args.special_color,
         "text": args.text_color,
+        "text_muted": "#6b6b70",
+        "empty": args.empty_color,
     }
     p.units = args.units
     p.set_tracks(tracks)
-    # circular not add footer and header
+    # circular not add footer and header; for the web embeds (github/grid) we also
+    # drop the in-SVG header/footer since the React cards supply their own titles.
     p.drawer_type = "plain" if is_circular else "title"
+    p.hide_chrome = not is_circular
     if args.type == "github":
         p.height = 55 + len(p.years.year_set) * 43
     # for special circular
