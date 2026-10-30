@@ -2,7 +2,7 @@ import useActivities from '@/hooks/useActivities';
 import { BuildingIcon } from '@/components/icons';
 
 const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
-  const { cities } = useActivities();
+  const { cities, unlocatedRuns, unlocatedDistance } = useActivities();
 
   const citiesArr = Object.entries(cities);
   citiesArr.sort((a, b) => b[1] - a[1]);
@@ -24,6 +24,15 @@ const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
             <span className="text-xs text-accentInk">{(distance / 1000).toFixed(0)}km</span>
           </button>
         ))}
+        {unlocatedRuns > 0 && (
+          <span
+            title={`${unlocatedRuns} 条记录没有地点信息（异地比赛或同步时未能反查地点），不计入上面的城市统计`}
+            className="inline-flex cursor-help items-center gap-1.5 rounded-full border border-dashed border-line px-3 py-1.5 text-sm text-muted"
+          >
+            未标注地点
+            <span className="text-xs">{(unlocatedDistance / 1000).toFixed(0)}km</span>
+          </span>
+        )}
       </div>
     </div>
   );

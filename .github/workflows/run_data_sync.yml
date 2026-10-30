@@ -22,6 +22,7 @@ on:
       - run_page/keep_to_strava_sync.py
       - run_page/oppo_sync.py
       - run_page/gpxtrackposter/**
+      - run_page/backfill_location.py
       - .github/workflows/run_data_sync.yml
       - requirements.txt
 
@@ -203,6 +204,15 @@ jobs:
             python run_page/oppo_sync.py ${{ secrets.OPPO_ID }} ${{ secrets.OPPO_CLIENT_SECRET }} ${{ secrets.OPPO_CLIENT_REFRESH_TOKEN }} --with-tcx
         # If you want to sync fit activity in gpx format, please consider the following script:
         # python run_page/oppo_sync.py ${{ secrets.OPPO_ID }} ${{ secrets.OPPO_CLIENT_SECRET }} ${{ secrets.OPPO_CLIENT_REFRESH_TOKEN }} --with-gpx
+
+      # FIT/Coros runs arrive without a location and the one-shot reverse
+      # geocoding in generator/db.py fails silently, so those runs never reach
+      # any city in the "城市足迹" panel. Fill them offline from nearby known runs
+      # (no network, no API key) and patch activities.json in place.
+      - name: Backfill missing activity locations
+        if: env.RUN_TYPE != 'pass'
+        run: |
+          python run_page/backfill_location.py
 
       - name: Make svg GitHub profile
         if: env.RUN_TYPE != 'pass'

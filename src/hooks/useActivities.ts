@@ -8,6 +8,11 @@ const useActivities = () => {
   const countries: Set<string> = new Set();
   let years: Set<string> = new Set();
   let thisYear = '';
+  // Runs whose `location_country` is empty (e.g. FIT/Coros sync without a
+  // reverse-geocoded place). They belong to no city, so track them separately
+  // instead of silently dropping them from the city totals.
+  let unlocatedRuns = 0;
+  let unlocatedDistance = 0;
 
   activities.forEach((run) => {
     const location = locationForRun(run);
@@ -23,6 +28,9 @@ const useActivities = () => {
     // drop only one char city
     if (city.length > 1) {
       cities[city] = cities[city] ? cities[city] + run.distance : run.distance;
+    } else {
+      unlocatedRuns += 1;
+      unlocatedDistance += run.distance;
     }
     if (province) provinces.add(province);
     if (country) countries.add(country);
@@ -39,6 +47,8 @@ const useActivities = () => {
     countries: [...countries],
     provinces: [...provinces],
     cities,
+    unlocatedRuns,
+    unlocatedDistance,
     runPeriod,
     thisYear,
   };
