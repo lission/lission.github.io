@@ -23,8 +23,9 @@ per prefecture-level city, and 50 km around the dense home-area anchors stays
 inside one prefecture while still being far shorter than the gap to the next
 city (the nearest foreign-city runs in this repo sit 68 km+ away).  Runs that
 are genuinely far from every anchor (a race in another city) are left untouched
-on purpose -- a wrong city is worse than no city, and the frontend reports the
-unlocated remainder explicitly.
+on purpose -- a wrong city is worse than no city -- and are handled instead by
+the hand-curated `MANUAL_LOCATIONS` table, which wins over the radius logic.
+The frontend still reports any remainder explicitly.
 
 Usage
 -----
@@ -48,6 +49,30 @@ JSON_FILE = os.path.join(REPO_ROOT, "src", "static", "activities.json")
 
 DEFAULT_RADIUS = 50000
 DEFAULT_ROUNDS = 3
+
+# Runs the anchor pass cannot reach, verified by hand.  They are kept out of the
+# automatic radius logic on purpose:
+#   * 2024-05-27 .. 06-11 (9 runs) -- every track starts at 39.9123, 116.1751,
+#     i.e. one fixed loop inside Beijing, far from any Dali anchor.
+#   * 2017-09-02 / 2018-03-29 (2 codoon runs) -- the source file has no track at
+#     all, but the adjacent records on 09-01, 09-04 and 03-22, 04-08 are the
+#     same 5 km / 3.9 km routine loop at 中国电影博物馆, 朝阳区, 北京市, and the
+#     distances match, so the city is certain even though the street is not.
+# City level only: the coordinates do not resolve a street, and a made-up street
+# address would look more precise than the evidence actually is.
+MANUAL_LOCATIONS = {
+    279164274: "北京市, 中国",
+    285913496: "北京市, 中国",
+    1716845637000: "北京市, 中国",
+    1717018463000: "北京市, 中国",
+    1717277962000: "北京市, 中国",
+    1717450378000: "北京市, 中国",
+    1717537149000: "北京市, 中国",
+    1717708993000: "北京市, 中国",
+    1717881701000: "北京市, 中国",
+    1718054481000: "北京市, 中国",
+    1718140934000: "北京市, 中国",
+}
 
 
 def decode_first_point(encoded):
@@ -128,6 +153,16 @@ def backfill(db_path, radius, rounds, dry_run=False):
     )
 
     filled = {}
+    manual = {}
+    for run_id in missing:
+        override = MANUAL_LOCATIONS.get(int(run_id))
+        if override:
+            manual[run_id] = override
+    if manual:
+        locations.update(manual)
+        filled.update(manual)
+        print(f"manual: filled {len(manual)} runs from the override table")
+
     for round_index in range(1, rounds + 1):
         anchors = [
             (points[run_id], loc)
