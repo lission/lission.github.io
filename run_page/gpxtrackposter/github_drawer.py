@@ -69,44 +69,25 @@ class GithubDrawer(TracksDrawer):
             )
             year_length = total_length_year_dict.get(year, 0)
             year_length = format_float(self.poster.m2u(year_length))
-            try:
-                month_names = [
-                    locale.nl_langinfo(day)[:3]  # Get only first three letters
-                    for day in [
-                        locale.MON_1,
-                        locale.MON_2,
-                        locale.MON_3,
-                        locale.MON_4,
-                        locale.MON_5,
-                        locale.MON_6,
-                        locale.MON_7,
-                        locale.MON_8,
-                        locale.MON_9,
-                        locale.MON_10,
-                        locale.MON_11,
-                        locale.MON_12,
-                    ]
-                ]
-                # support windows or others doesn't support locale Name, by Hard code
-            except Exception as e:
-                print(str(e))
-                month_names = [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                ]
+            # 中文月份缩写（1月…12月）。原先依赖 locale.nl_langinfo，在英文环境下
+            # 会输出 Jan…Dec；这里直接硬编码中文，保证日历标签始终为中文。
+            month_names = [
+                "1月",
+                "2月",
+                "3月",
+                "4月",
+                "5月",
+                "6月",
+                "7月",
+                "8月",
+                "9月",
+                "10月",
+                "11月",
+                "12月",
+            ]
             km_or_mi = "mi"
             if self.poster.units == "metric":
-                km_or_mi = "km"
+                km_or_mi = "公里"
             dr.add(
                 dr.text(
                     f"{year}",

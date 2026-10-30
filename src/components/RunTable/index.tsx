@@ -6,7 +6,7 @@ import {
   Activity,
   RunIds,
 } from '@/utils/utils';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/components/icons';
+import { ChevronLeftIcon, ChevronRightIcon, RouteIcon } from '@/components/icons';
 import RunRow from './RunRow';
 import styles from './style.module.css';
 
@@ -67,9 +67,20 @@ const RunTable = ({
     ['Time', sortRunTimeFunc],
     ['Date', sortDateFuncClick],
   ]);
+  // Display labels for the column headers. The internal sort keys above stay
+  // English (the sort logic and click handler rely on them); only the visible
+  // text is localized.
+  const HEADER_LABELS: Record<string, string> = {
+    KM: '公里',
+    Pace: '配速',
+    BPM: '心率',
+    Time: '时长',
+    Date: '日期',
+  };
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
-    const funcName = (e.target as HTMLElement).innerHTML;
+    const funcName = (e.currentTarget as HTMLElement).dataset.sortkey;
+    if (!funcName) return;
     const f = sortFuncMap.get(funcName);
 
     setRunIndex(-1);
@@ -92,21 +103,28 @@ const RunTable = ({
   return (
     <div className={styles.tableContainer}>
       <div className="card flex h-full flex-col overflow-hidden shadow-sm">
-        <div className="px-4 py-3 bg-accent">
-          <h3 className="font-sans text-xl font-bold text-white">Recent Pathways</h3>
+        <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+          <RouteIcon size={20} className="text-accentInk" />
+          <h3 className="font-sans text-xl font-bold text-ink">最近跑步记录</h3>
         </div>
         <div className="flex-1 overflow-x-auto">
           <table className={`${styles.runTable} h-full`} cellSpacing="0" cellPadding="0">
             <thead>
               <tr>
-                <th />
+                <th className={styles.nameHeader}>名称</th>
                 {Array.from(sortFuncMap.keys()).map((k) => (
                   <th
                     key={k}
+                    data-sortkey={k}
                     onClick={handleClick}
-                    className={k === 'Date' ? styles.dateCol : undefined}
+                    className={[
+                      k === 'Date' ? styles.dateCol : '',
+                      k === 'Time' || k === 'Date' ? styles.centerHeader : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                   >
-                    {k}
+                    {HEADER_LABELS[k]}
                   </th>
                 ))}
               </tr>

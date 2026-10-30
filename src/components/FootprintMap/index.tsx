@@ -39,15 +39,15 @@ const FootprintMap = () => {
 
   return (
     <section className="card flex h-full flex-col overflow-hidden shadow-sm">
-      {/* Filled green header, matching the Recent Pathways card beside/below. */}
-      <div className="flex items-center justify-between gap-3 bg-accent px-4 py-3">
-        <h4 className="flex items-center gap-2 font-sans text-xl font-bold text-white">
-          <FootprintsIcon size={20} className="text-white" />
+      {/* White header, matching the recent-runs card beside/below. */}
+      <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
+        <h4 className="flex items-center gap-2 font-sans text-xl font-bold text-ink">
+          <FootprintsIcon size={20} className="text-accentInk" />
           足迹地图
         </h4>
-        <p className="text-sm text-white/75">
-          <span className="text-xl font-bold text-white">{visited.size}</span>
-          <span className="mx-1">/</span>
+        <p className="text-sm text-muted">
+          <span className="text-xl font-bold text-ink">{visited.size}</span>
+          <span className="mx-1 text-line">/</span>
           {total} 省份
         </p>
       </div>
@@ -113,7 +113,7 @@ const FootprintMap = () => {
                     {hovered.runs} 次
                   </span>
                   <span className="text-muted">
-                    {`${(hovered.distance / 1000).toFixed(1)} km`}
+                    {`${(hovered.distance / 1000).toFixed(1)} 公里`}
                   </span>
                 </>
               ) : (

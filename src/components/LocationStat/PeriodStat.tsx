@@ -27,7 +27,7 @@ const PeriodStat = ({ onClick }: { onClick: (_period: string) => void }) => {
   return (
     <div className="mb-6">
       <h4 className="font-sans text-lg font-bold text-ink mb-3 flex items-center gap-2">
-        <ClockIcon size={18} className="text-ink" />
+        <ClockIcon size={18} className="text-accentInk" />
         跑步时段
       </h4>
       <div className="flex flex-wrap gap-2">

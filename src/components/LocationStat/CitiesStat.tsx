@@ -10,7 +10,7 @@ const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
   return (
     <div className="mb-6">
       <h4 className="font-sans text-lg font-bold text-ink mb-3 flex items-center gap-2">
-        <BuildingIcon size={20} className="text-ink" />
+        <BuildingIcon size={20} className="text-accentInk" />
         城市足迹
       </h4>
       <div className="flex flex-wrap gap-2">
@@ -21,7 +21,7 @@ const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1.5 text-sm text-ink transition-all duration-200 hover:border-accent/40 hover:text-accentInk"
           >
             {city}
-            <span className="text-xs text-accentInk">{(distance / 1000).toFixed(0)}km</span>
+            <span className="text-xs text-accentInk">{(distance / 1000).toFixed(0)}公里</span>
           </button>
         ))}
         {unlocatedRuns > 0 && (
@@ -30,7 +30,7 @@ const CitiesStat = ({ onClick }: { onClick: (_city: string) => void }) => {
             className="inline-flex cursor-help items-center gap-1.5 rounded-full border border-dashed border-line px-3 py-1.5 text-sm text-muted"
           >
             未标注地点
-            <span className="text-xs">{(unlocatedDistance / 1000).toFixed(0)}km</span>
+            <span className="text-xs">{(unlocatedDistance / 1000).toFixed(0)}公里</span>
           </span>
         )}
       </div>

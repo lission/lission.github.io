@@ -16,7 +16,7 @@ const RunMapButtons = ({ changeYear, thisYear }: { changeYear: (_year: string) =
             changeYear(year);
           }}
         >
-          {year}
+          {year === 'Total' ? '全部' : year}
         </li>
       ))}
     </ul>

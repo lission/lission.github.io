@@ -10,17 +10,17 @@ interface ISiteMetadataResult {
 }
 
 const data: ISiteMetadataResult = {
-  siteTitle: 'Lission Running Page',
+  siteTitle: 'Lission 跑步主页',
   siteUrl: 'https://lission.github.io/',
   logo: '/images/logo.svg',
-  description: 'Personal site and blog',
+  description: '个人跑步记录与博客',
   navLinks: [
     {
-      name: 'Blog',
+      name: '博客',
       url: 'https://github.com/lission/markDownNote?tab=readme-ov-file#readme',
     },
     {
-      name: 'About',
+      name: '关于',
       url: 'https://github.com/lission/lission.github.io',
     },
   ],

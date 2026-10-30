@@ -57,7 +57,7 @@ const Index = () => {
     }
     setActivity(filterAndSortRuns(activities, item, func, sortDateFunc));
     setRunIndex(-1);
-    setTitle(`${item} ${name} Running Heatmap`);
+    setTitle(`${item} ${name} 跑步热力图`);
   };
 
   // Restore the full set of routes for the current year on the map.
@@ -69,7 +69,7 @@ const Index = () => {
     const yearGeo = geoJsonForRuns(runs);
     setRunIndex(-1);
     setGeoData(yearGeo);
-    setTitle(`${year} Year Running Heatmap`);
+    setTitle(`${year} 年跑步热力图`);
     setFlyTarget(getBoundsForGeoData(yearGeo));
   };
 

@@ -57,7 +57,7 @@ class GridDrawer(TracksDrawer):
 
         str_length = format_float(self.poster.m2u(tr.length))
 
-        date_title = f"{str(tr.start_time_local)[:10]} {str_length}km"
+        date_title = f"{str(tr.start_time_local)[:10]} {str_length}公里"
         for line in project(tr.bbox(), size, offset, tr.polylines):
             distance1 = self.poster.special_distance["special_distance"]
             distance2 = self.poster.special_distance["special_distance2"]

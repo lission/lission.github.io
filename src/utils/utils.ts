@@ -29,15 +29,15 @@ export interface Activity {
 const titleForShow = (run: Activity): string => {
   const date = run.start_date_local.slice(0, 11);
   const distance = (run.distance / 1000.0).toFixed(2);
-  let name = 'Run';
+  let name = '跑步';
   if (run.name.slice(0, 7) === 'Running') {
     name = 'run';
   }
   if (run.name) {
     name = run.name;
   }
-  return `${name} ${date} ${distance} KM ${
-    !run.summary_polyline ? '(No map data for this run)' : ''
+  return `${name} ${date} ${distance} 公里 ${
+    !run.summary_polyline ? '(该次跑步无地图数据)' : ''
   }`;
 };
 
@@ -67,9 +67,9 @@ const formatRunTime = (moving_time: string): string => {
   const seconds = totalSeconds % 60;
   const minutes = (totalSeconds - seconds) / 60;
   if (minutes === 0) {
-    return seconds + 's';
+    return seconds + '秒';
   }
-  return minutes + 'min';
+  return minutes + '分钟';
 };
 
 // for scroll to the map

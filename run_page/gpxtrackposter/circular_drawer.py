@@ -13,6 +13,22 @@ from typing import List, Optional
 
 import svgwrite
 
+# 中文月份名称，用于环形日历的月份标签（原先使用 strftime("%B") 输出英文全称）。
+MONTH_NAMES_ZH = [
+    "一月",
+    "二月",
+    "三月",
+    "四月",
+    "五月",
+    "六月",
+    "七月",
+    "八月",
+    "九月",
+    "十月",
+    "十一月",
+    "十二月",
+]
+
 from .exceptions import PosterError
 from .poster import Poster, FONT
 from .track import Track
@@ -154,7 +170,9 @@ class CircularDrawer(TracksDrawer):
                 )
                 dr.add(path)
                 tpath = svgwrite.text.TextPath(
-                    path, date.strftime("%B"), startOffset=(0.5 * r3 * (a3 - a1))
+                    path,
+                    MONTH_NAMES_ZH[date.month - 1],
+                    startOffset=(0.5 * r3 * (a3 - a1)),
                 )
                 text = dr.text(
                     "",

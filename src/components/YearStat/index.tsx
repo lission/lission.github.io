@@ -54,16 +54,15 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
 
   const isTotal = year === 'Total';
 
-  // Total spans the whole row (it is the only card in that grid row), so its
-  // four figures sit in one line.  A single year sits in the narrow left
-  // column next to the table, where a compact 2x2 grid is the only thing that
-  // fits.
+  // Total spans the whole row and shows all five figures (incl. heart rate) in
+  // one line.  A single year sits in the narrow left column next to the table,
+  // where a compact 2x2 grid plus a full-width heart-rate tile is what fits.
   const statsGridClass = isTotal
-    ? 'grid grid-cols-2 sm:grid-cols-4 gap-3'
+    ? 'grid grid-cols-2 sm:grid-cols-5 gap-3'
     : 'grid grid-cols-2 gap-2';
   const statsBoxClass = isTotal
     ? 'bg-surfaceSoft rounded-2xl px-4 py-3 text-center'
-    : 'bg-surfaceSoft rounded-xl px-2 py-2';
+    : 'bg-surfaceSoft rounded-xl px-2 py-2 text-center';
   const statsValueClass = isTotal
     ? 'text-xl font-bold text-ink whitespace-nowrap'
     : 'text-base font-bold text-ink whitespace-nowrap';
@@ -80,47 +79,59 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
       <div className="card flex h-full flex-col p-4 shadow-sm yearstat-card">
         <div className="flex items-center gap-2 mb-3">
           {isTotal ? (
-            <FootprintsIcon size={22} className="text-ink" />
+            <FootprintsIcon size={22} className="text-accentInk" />
           ) : (
-            <CalendarIcon size={22} className="text-ink" />
+            <CalendarIcon size={22} className="text-accentInk" />
           )}
           <h3 className="font-sans text-xl font-bold text-ink">
-            {isTotal ? 'Total Journey' : `${year} Journey`}
+            {isTotal ? '全部跑步历程' : `${year} 跑步历程`}
           </h3>
         </div>
 
         <div className={statsGridClass}>
           <div className={statsBoxClass}>
-            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Runs</p>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">次数</p>
             <p className={statsValueClass}>{runs.length}</p>
           </div>
 
           <div className={statsBoxClass}>
-            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Distance</p>
-            <p className={statsValueClass}>{sumDistance} <span className="text-xs">KM</span></p>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">距离</p>
+            <p className={statsValueClass}>{sumDistance} <span className="text-xs">公里</span></p>
           </div>
 
           <div className={statsBoxClass}>
-            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Avg Pace</p>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">平均配速</p>
             <p className={statsValueClass}>{avgPace}</p>
           </div>
 
           <div className={statsBoxClass}>
-            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Streak</p>
-            <p className={statsValueClass}>{streak} <span className="text-xs">Days</span></p>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">连续天数</p>
+            <p className={statsValueClass}>{streak} <span className="text-xs">天</span></p>
           </div>
+
+          {hasHeartRate && isTotal && (
+            <div className={statsBoxClass}>
+              <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center justify-center gap-1">
+                <HeartIcon size={14} className="text-accent" />
+                平均心率
+              </p>
+              <p className={statsValueClass}>{avgHeartRate} <span className="text-xs">次/分</span></p>
+            </div>
+          )}
         </div>
 
-        {hasHeartRate && (
-          <div className="mt-3 bg-surfaceSoft rounded-xl p-3 flex items-center gap-2">
+        {/* In a single year's narrow column the heart-rate tile drops below the
+            2x2 grid; in Total view it already joined the grid above. */}
+        {hasHeartRate && !isTotal && (
+          <div className="mt-3 bg-surfaceSoft rounded-xl p-3 flex items-center justify-center gap-2">
             <HeartIcon size={18} className="text-accent" />
-            <p className="text-muted text-[10px] font-bold uppercase">Avg HR:</p>
-            <p className="text-base font-bold text-ink">{avgHeartRate} <span className="text-xs">BPM</span></p>
+            <p className="text-muted text-[10px] font-bold uppercase">平均心率：</p>
+            <p className="text-base font-bold text-ink">{avgHeartRate} <span className="text-xs">次/分</span></p>
           </div>
         )}
 
         {!isTotal && (hovered || defaultExpanded) && (
-          <Suspense fallback="loading...">
+          <Suspense fallback="加载中...">
             <div className="yearChart mt-3 flex flex-1 items-center justify-center">
               <YearSVG className="w-full max-w-[270px] h-auto" />
             </div>

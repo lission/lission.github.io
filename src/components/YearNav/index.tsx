@@ -23,7 +23,7 @@ const YearNav = ({ year, onClick }: { year: string; onClick: (_year: string) => 
                 : 'bg-surface border border-line text-muted hover:text-accentInk hover:border-accent/40')
             }
           >
-            {y}
+            {y === 'Total' ? '全部' : y}
           </button>
         );
       })}

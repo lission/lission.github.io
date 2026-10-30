@@ -10,19 +10,19 @@ const SVGStat = () => (
     <div id="svgStat" className="mt-6 grid grid-cols-1 gap-4">
       <div className="card p-4 shadow-sm calChart w-full">
       <h4 className="font-sans text-xl font-bold text-ink mb-4 flex items-center gap-2">
-        <CalendarIcon size={20} className="text-ink" />
-        Running Calendar
+        <CalendarIcon size={20} className="text-accentInk" />
+        跑步日历
       </h4>
-      <Suspense fallback={<div className="text-center text-muted">Loading...</div>}>
+      <Suspense fallback={<div className="text-center text-muted">加载中...</div>}>
         <GithubSvg className="h-auto w-full" />
       </Suspense>
     </div>
     <div className="card p-4 shadow-sm gridChart w-full">
       <h4 className="font-sans text-xl font-bold text-ink mb-4 flex items-center gap-2">
-        <MapIcon size={20} className="text-ink" />
-        Route Grid
+        <MapIcon size={20} className="text-accentInk" />
+        路线概览
       </h4>
-      <Suspense fallback={<div className="text-center text-muted">Loading...</div>}>
+      <Suspense fallback={<div className="text-center text-muted">加载中...</div>}>
         <GridSvg className="h-auto w-full" />
       </Suspense>
     </div>

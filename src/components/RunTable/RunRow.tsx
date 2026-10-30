@@ -41,8 +41,8 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IR
       <td className="font-bold text-ink whitespace-nowrap">{distance}</td>
       {paceParts && <td className="italic text-accentInk">{paceParts}</td>}
       <td>{heartRate && heartRate.toFixed(0)}</td>
-      <td>{runTime}</td>
-      <td className={`${styles.dateCol} ${styles.runDate}`}>
+      <td className={styles.centerCell}>{runTime}</td>
+      <td className={`${styles.dateCol} ${styles.runDate} ${styles.centerCell}`}>
         {run.start_date_local}
       </td>
     </tr>

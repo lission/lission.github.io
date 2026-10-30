@@ -122,6 +122,14 @@ export const BuildingIcon = ({ size = 20, className }: IconProps) => (
   </svg>
 );
 
+export const RouteIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <circle cx="6" cy="19" r="2" />
+    <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-7a3.5 3.5 0 0 1 0-7H14" />
+    <circle cx="18" cy="5" r="2" />
+  </svg>
+);
+
 export const ChevronLeftIcon = ({ size = 20, className }: IconProps) => (
   <svg {...svgProps(size, className)}>
     <path d="m15 18-6-6 6-6" />

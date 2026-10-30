@@ -7,31 +7,31 @@ const LocationSummary = () => {
   return (
     <div className="mb-6">
       <h4 className="font-sans text-lg font-bold text-ink mb-3 flex items-center gap-2">
-        <MapIcon size={20} className="text-ink" />
+        <MapIcon size={20} className="text-accentInk" />
         跑步地图
       </h4>
       <div className="grid grid-cols-2 gap-3">
         {years && (
-          <div className="card p-3 shadow-sm">
-            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">Years</p>
+          <div className="card p-3 shadow-sm text-center">
+            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">年份</p>
             <p className="text-xl font-bold text-ink">{years.length}</p>
           </div>
         )}
         {countries && (
-          <div className="card p-3 shadow-sm">
-            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">Countries</p>
+          <div className="card p-3 shadow-sm text-center">
+            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">国家</p>
             <p className="text-xl font-bold text-ink">{countries.length}</p>
           </div>
         )}
         {provinces && (
-          <div className="card p-3 shadow-sm">
-            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">Provinces</p>
+          <div className="card p-3 shadow-sm text-center">
+            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">省份</p>
             <p className="text-xl font-bold text-ink">{provinces.length}</p>
           </div>
         )}
         {cities && (
-          <div className="card p-3 shadow-sm">
-            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">Cities</p>
+          <div className="card p-3 shadow-sm text-center">
+            <p className="text-muted text-xs font-bold uppercase tracking-wider mb-1 break-words">城市</p>
             <p className="text-xl font-bold text-ink">{Object.keys(cities).length}</p>
           </div>
         )}
