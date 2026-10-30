@@ -10,7 +10,7 @@ const Header = () => {
         <Link to={siteUrl} className="flex items-center gap-2.5">
           <picture>
             <img
-              className="h-8 w-8 rounded-full border border-line"
+              className="h-8 w-8 shrink-0"
               alt="logo"
               src={logo}
             />

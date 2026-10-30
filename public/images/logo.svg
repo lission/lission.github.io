@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="跑步日记">
+  <rect width="64" height="64" rx="18" fill="#2fb36d"/>
+  <path d="M19 45 L27 33 L36 38 L46 23"
+        fill="none" stroke="#ffffff" stroke-width="5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="19" cy="45" r="3.8" fill="#ffffff"/>
+  <circle cx="46" cy="23" r="3.8" fill="#ffffff"/>
+</svg>
