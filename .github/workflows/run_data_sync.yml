@@ -25,6 +25,16 @@ on:
       - run_page/backfill_location.py
       - .github/workflows/run_data_sync.yml
       - requirements.txt
+      # Frontend changes must land too: this workflow is the only one that
+      # builds and publishes gh-pages (it restores the cached activity data
+      # that the build needs), so without these paths a UI fix is committed and
+      # then sits invisible until the next scheduled sync.
+      - src/**
+      - public/**
+      - index.html
+      - tailwind.config.js
+      - package.json
+      - pnpm-lock.yaml
 
 env:
   # please change to your own config.
