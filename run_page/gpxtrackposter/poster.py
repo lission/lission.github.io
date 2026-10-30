@@ -109,8 +109,8 @@ class Poster:
             else:
                 self.tracks_by_date[text_date] = [track]
             self.length_range.extend(track.length)
-        for tracks in self.tracks_by_date.values():
-            length = sum([t.length for t in tracks])
+        for date_tracks in self.tracks_by_date.values():
+            length = sum([t.length for t in date_tracks])
             self.length_range_by_date.extend(length)
 
         # Year-to-total-distance map, used by the github (calendar) drawer.

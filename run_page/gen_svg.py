@@ -256,7 +256,9 @@ def main():
     p.drawer_type = "plain" if is_circular else "title"
     p.hide_chrome = not is_circular
     if args.type == "github":
-        p.height = 55 + len(p.years.year_set) * 43
+        # Derive the canvas from the drawer's own block metrics: the old
+        # `55 + 43 * years` left a header-sized blank strip under the calendar.
+        p.height = drawers["github"].content_height(len(p.years.year_set))
     # for special circular
     if is_circular:
         years = p.years.all()[:]
