@@ -64,10 +64,13 @@
   font-weight: 600;
 }
 
+/* The table is a grid item next to the journey card, so it must accept the row
+   height instead of defining it; the inner card stretches and the pager pins
+   itself to the bottom. */
 .tableContainer {
   width: 100%;
-  overflow-x: auto;
-  margin-top: 1.5rem;
+  height: 100%;
+  min-width: 0;
 }
 
 .runDate {

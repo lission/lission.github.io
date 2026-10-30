@@ -217,22 +217,23 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <div
-        className={
-          year === 'Total'
-            ? 'mt-6'
-            : 'mt-6 mx-auto w-full max-w-2xl flex flex-col items-center'
-        }
-      >
-        <YearStat year={year} onClick={changeYear} defaultExpanded />
+      {/* Second row: the journey card drops into the left column, directly under
+          跑步时段, and the paged run list takes the two columns to its right.
+          items-stretch keeps both cards the same height. */}
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className={year === 'Total' ? 'lg:col-span-3' : 'lg:col-span-1'}>
+          <YearStat year={year} onClick={changeYear} defaultExpanded />
+        </div>
         {year !== 'Total' && (
-          <RunTable
-            runs={runs}
-            locateActivity={locateActivity}
-            setActivity={setActivity}
-            runIndex={runIndex}
-            setRunIndex={setRunIndex}
-          />
+          <div className="min-w-0 lg:col-span-2">
+            <RunTable
+              runs={runs}
+              locateActivity={locateActivity}
+              setActivity={setActivity}
+              runIndex={runIndex}
+              setRunIndex={setRunIndex}
+            />
+          </div>
         )}
       </div>
       {year === 'Total' && (

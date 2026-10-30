@@ -38,19 +38,20 @@ const FootprintMap = () => {
     });
 
   return (
-    <section className="card flex h-full flex-col p-4 shadow-sm">
-      <div className="flex items-baseline justify-between gap-3">
-        <h4 className="font-sans text-lg font-bold text-ink flex items-center gap-2">
-          <FootprintsIcon size={20} className="text-ink" />
+    <section className="card flex h-full flex-col overflow-hidden shadow-sm">
+      {/* Filled green header, matching the Recent Pathways card beside/below. */}
+      <div className="flex items-center justify-between gap-3 bg-accent px-4 py-3">
+        <h4 className="flex items-center gap-2 font-sans text-xl font-bold text-white">
+          <FootprintsIcon size={20} className="text-white" />
           足迹地图
         </h4>
-        <p className="text-sm text-muted">
-          <span className="text-xl font-bold text-accentInk">{visited.size}</span>
+        <p className="text-sm text-white/75">
+          <span className="text-xl font-bold text-white">{visited.size}</span>
           <span className="mx-1">/</span>
           {total} 省份
         </p>
       </div>
-      <div className="relative mt-2 flex min-h-0 flex-1 items-center justify-center">
+      <div className="relative flex min-h-0 flex-1 items-center justify-center p-4">
         <svg
           viewBox={CHINA_MAP_VIEWBOX}
           className="footprint-map h-full w-full"
@@ -100,7 +101,7 @@ const FootprintMap = () => {
 
         {/* Hover readout: bottom-left, over the open sea, never over the land. */}
         <div
-          className="pointer-events-none absolute bottom-0 left-0 min-h-[28px] text-sm"
+          className="pointer-events-none absolute bottom-4 left-4 min-h-[28px] text-sm"
           aria-live="polite"
         >
           {hovered && (

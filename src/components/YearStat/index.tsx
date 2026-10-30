@@ -28,8 +28,6 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
   }
   let sumDistance = 0;
   let streak = 0;
-  let pace = 0;
-  let paceNullCount = 0;
   let heartRate = 0;
   let heartRateNullCount = 0;
   let totalMetersAvail = 0;
@@ -37,11 +35,8 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
   runs.forEach((run) => {
     sumDistance += run.distance || 0;
     if (run.average_speed) {
-      pace += run.average_speed;
       totalMetersAvail += run.distance || 0;
       totalSecondsAvail += (run.distance || 0) / run.average_speed;
-    } else {
-      paceNullCount++;
     }
     if (run.average_heartrate) {
       heartRate += run.average_heartrate;
@@ -59,9 +54,10 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
 
   const isTotal = year === 'Total';
 
-  // The Total card is rendered full-width (matching the full-width SVG stats
-  // below it), so its four figures sit in one row. Year cards stay side-by-side
-  // with the radial chart and use a compact 2x2 grid.
+  // Total spans the whole row (it is the only card in that grid row), so its
+  // four figures sit in one line.  A single year sits in the narrow left
+  // column next to the table, where a compact 2x2 grid is the only thing that
+  // fits.
   const statsGridClass = isTotal
     ? 'grid grid-cols-2 sm:grid-cols-4 gap-3'
     : 'grid grid-cols-2 gap-2';
@@ -74,63 +70,62 @@ const YearStat = ({ year, onClick, defaultExpanded = false }: { year: string, on
 
   return (
     <div
-      className="cursor-pointer select-none outline-none w-full"
+      className="cursor-pointer select-none outline-none w-full h-full"
       onClick={() => onClick(year)}
       {...eventHandlers}
     >
-      <div className="card p-4 shadow-sm mb-4 yearstat-card">
-        <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-5">
-          <div className="w-full sm:flex-1 flex flex-col justify-center text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
-              {isTotal ? (
-                <FootprintsIcon size={22} className="text-ink" />
-              ) : (
-                <CalendarIcon size={22} className="text-ink" />
-              )}
-              <h3 className="font-sans text-xl font-bold text-ink">
-                {isTotal ? 'Total Journey' : `${year} Journey`}
-              </h3>
-            </div>
-            
-            <div className={statsGridClass}>
-              <div className={statsBoxClass}>
-                <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Runs</p>
-                <p className={statsValueClass}>{runs.length}</p>
-              </div>
-              
-              <div className={statsBoxClass}>
-                <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Distance</p>
-                <p className={statsValueClass}>{sumDistance} <span className="text-xs">KM</span></p>
-              </div>
-              
-              <div className={statsBoxClass}>
-                <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Avg Pace</p>
-                <p className={statsValueClass}>{avgPace}</p>
-              </div>
-              
-              <div className={statsBoxClass}>
-                <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Streak</p>
-                <p className={statsValueClass}>{streak} <span className="text-xs">Days</span></p>
-              </div>
-            </div>
-            
-            {hasHeartRate && (
-              <div className="mt-3 bg-surfaceSoft rounded-xl p-3 flex items-center justify-center sm:justify-start gap-2">
-                <HeartIcon size={18} className="text-accent" />
-                <p className="text-muted text-[10px] font-bold uppercase">Avg HR:</p>
-                <p className="text-base font-bold text-ink">{avgHeartRate} <span className="text-xs">BPM</span></p>
-              </div>
-            )}
+      {/* Stacked vertically: figures on top, radial chart underneath.  The card
+          now lives in the narrow left column, where side-by-side put the chart
+          at ~120px wide; full width suits the ring far better. */}
+      <div className="card flex h-full flex-col p-4 shadow-sm yearstat-card">
+        <div className="flex items-center gap-2 mb-3">
+          {isTotal ? (
+            <FootprintsIcon size={22} className="text-ink" />
+          ) : (
+            <CalendarIcon size={22} className="text-ink" />
+          )}
+          <h3 className="font-sans text-xl font-bold text-ink">
+            {isTotal ? 'Total Journey' : `${year} Journey`}
+          </h3>
+        </div>
+
+        <div className={statsGridClass}>
+          <div className={statsBoxClass}>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Runs</p>
+            <p className={statsValueClass}>{runs.length}</p>
           </div>
 
-          {!isTotal && (hovered || defaultExpanded) && (
-            <Suspense fallback="loading...">
-              <div className="yearChart w-full sm:flex-1 flex items-center justify-center sm:border-l sm:border-line sm:pl-5">
-                <YearSVG className="w-full max-w-[240px] h-auto" />
-              </div>
-            </Suspense>
-          )}
+          <div className={statsBoxClass}>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Distance</p>
+            <p className={statsValueClass}>{sumDistance} <span className="text-xs">KM</span></p>
+          </div>
+
+          <div className={statsBoxClass}>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Avg Pace</p>
+            <p className={statsValueClass}>{avgPace}</p>
+          </div>
+
+          <div className={statsBoxClass}>
+            <p className="text-muted text-[10px] font-bold uppercase tracking-wider mb-1">Streak</p>
+            <p className={statsValueClass}>{streak} <span className="text-xs">Days</span></p>
+          </div>
         </div>
+
+        {hasHeartRate && (
+          <div className="mt-3 bg-surfaceSoft rounded-xl p-3 flex items-center gap-2">
+            <HeartIcon size={18} className="text-accent" />
+            <p className="text-muted text-[10px] font-bold uppercase">Avg HR:</p>
+            <p className="text-base font-bold text-ink">{avgHeartRate} <span className="text-xs">BPM</span></p>
+          </div>
+        )}
+
+        {!isTotal && (hovered || defaultExpanded) && (
+          <Suspense fallback="loading...">
+            <div className="yearChart mt-3 flex flex-1 items-center justify-center">
+              <YearSVG className="w-full max-w-[270px] h-auto" />
+            </div>
+          </Suspense>
+        )}
       </div>
     </div>
   );
