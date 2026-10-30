@@ -1,8 +1,15 @@
-@media only screen and (max-width: 700px) {
-  .runTable th:nth-child(4),
-  .runTable td:nth-child(4) {
-    display: none;
-  }
+.dateCol {
+  white-space: nowrap;
+}
+
+/* Only rendered on narrow screens, where the date column is hidden. */
+.runDateInline {
+  display: none;
+  margin-top: 2px;
+  color: #6b6b70;
+  font-size: 0.7rem;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .runTable {
@@ -114,5 +121,39 @@
 @media (prefers-reduced-motion: reduce) {
   .runRow {
     animation: none;
+  }
+}
+
+/* Mobile: five columns of numbers plus a full timestamp do not fit in 360px,
+   and a squeezed date cell breaks into "202 / 10-..." fragments. Drop the date
+   column and print the timestamp under the run title instead.
+   These rules must stay *after* the base declarations above -- same
+   specificity, so source order decides the winner. */
+@media only screen and (max-width: 700px) {
+  .runTable th:nth-child(4),
+  .runTable td:nth-child(4) {
+    display: none;
+  }
+
+  .dateCol {
+    display: none;
+  }
+
+  .runDateInline {
+    display: block;
+  }
+
+  .runTable :is(thead) :is(th) {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  .runRow :is(td) {
+    padding: 0.6rem 0.5rem;
+  }
+
+  .runRow :is(td):first-child {
+    white-space: nowrap;
   }
 }

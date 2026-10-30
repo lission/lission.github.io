@@ -9,27 +9,6 @@ interface IRunRowProperties {
   setRunIndex: (_ndex: number) => void;
 }
 
-const getFeelingEmoji = (run: Activity): string => {
-  const heartRate = run.average_heartrate;
-  const pace = run.average_speed;
-  
-  if (heartRate) {
-    if (heartRate < 140) return '😊';
-    if (heartRate < 160) return '😄';
-    if (heartRate < 175) return '😐';
-    return '😤';
-  }
-  
-  if (pace) {
-    const paceMin = (1000 / 60) * (1 / pace);
-    if (paceMin < 5.5) return '😄';
-    if (paceMin < 6.5) return '😊';
-    return '😐';
-  }
-  
-  return '🏃';
-};
-
 const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IRunRowProperties) => {
   const distance = (run.distance / 1000.0).toFixed(2);
   const paceParts = run.average_speed ? formatPace(run.average_speed) : null;
@@ -51,12 +30,21 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IR
       key={run.start_date_local}
       onClick={handleClick}
     >
-      <td className="font-medium text-ink">{titleForRun(run)}</td>
+      <td className="font-medium text-ink">
+        {titleForRun(run)}
+        {/* Narrow screens hide the date column; the seconds add width without
+            adding information here, so the inline copy stops at the minute. */}
+        <span className={styles.runDateInline}>
+          {run.start_date_local.slice(0, 16)}
+        </span>
+      </td>
       <td className="font-bold text-ink whitespace-nowrap">{distance}</td>
       {paceParts && <td className="italic text-accentInk">{paceParts}</td>}
       <td>{heartRate && heartRate.toFixed(0)}</td>
       <td>{runTime}</td>
-      <td className={styles.runDate}>{run.start_date_local}</td>
+      <td className={`${styles.dateCol} ${styles.runDate}`}>
+        {run.start_date_local}
+      </td>
     </tr>
   );
 };
