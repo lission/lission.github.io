@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Layout from '@/components/Layout';
+import FootprintMap from '@/components/FootprintMap';
 import RunMap from '@/components/RunMap';
 import RunTable from '@/components/RunTable';
 import SVGStat from '@/components/SVGStat';
@@ -199,16 +200,21 @@ const Index = () => {
           <CitiesStat onClick={changeCity} />
           <PeriodStat onClick={changeTitle} />
         </div>
-        <div className="lg:col-span-2">
-          <RunMap
-            title={title}
-            viewState={viewState}
-            geoData={geoData}
-            setViewState={setViewState}
-            changeYear={changeYear}
-            thisYear={year}
-            flyTarget={flyTarget}
-          />
+        <div className="lg:col-span-2 flex min-w-0 flex-col gap-6">
+          <div className="h-[300px] shrink-0 lg:h-[420px]">
+            <FootprintMap />
+          </div>
+          <div className="min-h-[320px] flex-1 lg:min-h-[240px]">
+            <RunMap
+              title={title}
+              viewState={viewState}
+              geoData={geoData}
+              setViewState={setViewState}
+              changeYear={changeYear}
+              thisYear={year}
+              flyTarget={flyTarget}
+            />
+          </div>
         </div>
       </div>
       <div

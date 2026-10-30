@@ -131,3 +131,40 @@ hr {
 ::selection {
   background-color: rgba(47, 179, 109, 0.22);
 }
+
+/* Province footprint map (src/components/FootprintMap).  Thin white seams keep
+   neighbouring provinces readable; visited land picks up the brand green. */
+.footprint-map > path {
+  stroke: #ffffff;
+  stroke-width: 1.1;
+  transition: fill 200ms var(--ease);
+}
+
+.footprint-map > path.is-empty {
+  fill: #e4e4de;
+}
+
+.footprint-map > path.is-empty:hover {
+  fill: #d8d8d2;
+}
+
+.footprint-map > path.is-visited {
+  fill: var(--accent);
+}
+
+.footprint-map > path.is-visited:hover {
+  fill: var(--accent-ink);
+}
+
+/* South China Sea inset: islands only, so keep them a readable grey speck
+   instead of the near-invisible white seam used between provinces. */
+.footprint-map-inset path {
+  fill: #adada7;
+  stroke: #adada7;
+  stroke-width: 1;
+}
+
+.footprint-map-inset text {
+  font-family: inherit;
+  letter-spacing: 0.4px;
+}

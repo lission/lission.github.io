@@ -5,6 +5,7 @@ const useActivities = () => {
   const cities: Record<string, number> = {};
   const runPeriod: Record<string, number> = {};
   const provinces: Set<string> = new Set();
+  const provinceDistance: Record<string, number> = {};
   const countries: Set<string> = new Set();
   let years: Set<string> = new Set();
   let thisYear = '';
@@ -32,7 +33,12 @@ const useActivities = () => {
       unlocatedRuns += 1;
       unlocatedDistance += run.distance;
     }
-    if (province) provinces.add(province);
+    if (province) {
+      provinces.add(province);
+      provinceDistance[province] = provinceDistance[province]
+        ? provinceDistance[province] + run.distance
+        : run.distance;
+    }
     if (country) countries.add(country);
     const year = run.start_date_local.slice(0, 4);
     years.add(year);
@@ -46,6 +52,7 @@ const useActivities = () => {
     years: yearsArray,
     countries: [...countries],
     provinces: [...provinces],
+    provinceDistance,
     cities,
     unlocatedRuns,
     unlocatedDistance,
