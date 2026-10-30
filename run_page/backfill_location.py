@@ -58,8 +58,11 @@ DEFAULT_ROUNDS = 3
 #     all, but the adjacent records on 09-01, 09-04 and 03-22, 04-08 are the
 #     same 5 km / 3.9 km routine loop at 中国电影博物馆, 朝阳区, 北京市, and the
 #     distances match, so the city is certain even though the street is not.
-# City level only: the coordinates do not resolve a street, and a made-up street
-# address would look more precise than the evidence actually is.
+#   * the Yunnan trips below -- reverse geocoded from the first track point once
+#     each; they are 200 km+ from every anchor so the radius pass never reaches
+#     them.  Kept ascending (street, county, prefecture, province, country) and
+#     simplified Chinese, because `locationForRun()` matches the prefecture
+#     names in `src/static/city.ts`.
 MANUAL_LOCATIONS = {
     279164274: "北京市, 中国",
     285913496: "北京市, 中国",
@@ -72,6 +75,22 @@ MANUAL_LOCATIONS = {
     1717881701000: "北京市, 中国",
     1718054481000: "北京市, 中国",
     1718140934000: "北京市, 中国",
+    # 腾冲 · 腾越街道
+    1731803450000: "腾越街道, 腾冲市, 保山市, 云南省, 中国",
+    # 泸沽湖 · 宁蒗（两跑同一地点）
+    1756075957000: "宁蒗彝族自治县, 丽江市, 云南省, 中国",
+    1756160291000: "宁蒗彝族自治县, 丽江市, 云南省, 中国",
+    # 昆明滇池 · 42 km 全马
+    1764460976000: "昆明滇池国家旅游度假区, 西山区, 昆明市, 云南省, 中国",
+    # 昆明大板桥（两跑同一地点）
+    1768909952000: "大板桥街道, 官渡区, 昆明市, 云南省, 中国",
+    1769086770000: "大板桥街道, 官渡区, 昆明市, 云南省, 中国",
+    # 曲靖麒麟区 / 会泽县
+    1769947634000: "南宁街道, 麒麟区, 曲靖市, 云南省, 中国",
+    1770296373000: "会泽县, 曲靖市, 云南省, 中国",
+    # 西双版纳景洪 / 普洱镇沅
+    1777762107000: "景洪市, 西双版纳傣族自治州, 云南省, 中国",
+    1777933809000: "恩乐镇, 镇沅彝族哈尼族拉祜族自治县, 普洱市, 云南省, 中国",
 }
 
 
