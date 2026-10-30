@@ -103,7 +103,7 @@ const FootprintMap = () => {
           className="pointer-events-none absolute bottom-0 left-0 min-h-[28px] text-sm"
           aria-live="polite"
         >
-          {hovered ? (
+          {hovered && (
             <p className="flex items-baseline gap-2 leading-none">
               <span className="font-bold text-ink">{hovered.name}</span>
               {hovered.runs > 0 ? (
@@ -118,10 +118,6 @@ const FootprintMap = () => {
               ) : (
                 <span className="text-muted">尚未踏足</span>
               )}
-            </p>
-          ) : (
-            <p className="leading-none text-muted opacity-70">
-              悬停或点按省份查看次数与里程
             </p>
           )}
         </div>
