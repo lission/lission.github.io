@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import useSiteMetadata from '@/hooks/useSiteMetadata';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Header = () => {
   const { logo, siteUrl, navLinks } = useSiteMetadata();
@@ -31,6 +32,8 @@ const Header = () => {
             </a>
           ))}
         </nav>
+        <span className="h-5 w-px bg-line" aria-hidden="true" />
+        <ThemeToggle />
       </div>
     </header>
   );

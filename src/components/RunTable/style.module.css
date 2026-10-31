@@ -23,7 +23,7 @@
 .runDateInline {
   display: none;
   margin-top: 2px;
-  color: #6b6b70;
+  color: var(--muted);
   font-size: 0.7rem;
   font-weight: 400;
   white-space: nowrap;
@@ -34,7 +34,7 @@
   font-variant: tabular-nums;
 
   :is(thead) {
-    color: #157f47;
+    color: var(--accent-ink);
     text-align: right;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -46,9 +46,9 @@
       cursor: pointer;
       transition: color 0.2s ease;
     }
-    
+
     :is(th:hover) {
-      color: #157f47;
+      color: var(--accent-ink);
     }
   }
 }
@@ -68,16 +68,16 @@
   }
 
   &:hover {
-    background-color: #f3f3f1;
+    background-color: var(--surface-soft);
   }
 }
 
 .selected {
-  background-color: rgba(47, 179, 109, 0.14) !important;
+  background-color: var(--accent-soft) !important;
 }
 
 .selected td {
-  color: #157f47;
+  color: var(--accent-ink);
   font-weight: 600;
 }
 
@@ -91,16 +91,16 @@
 }
 
 .runDate {
-  color: #6b6b70;
+  color: var(--muted);
   font-size: 0.75rem;
 }
 
 .runRow:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: var(--surface);
 }
 
 .runRow:nth-child(even) {
-  background-color: #faf9f7;
+  background-color: var(--surface-soft);
 }
 
 /* Hop-style entrance for table rows: subtle upward translate + fade-in cascade. */

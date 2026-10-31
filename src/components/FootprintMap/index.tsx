@@ -81,18 +81,17 @@ const FootprintMap = () => {
               y={CHINA_SOUTH_SEA.box.y}
               width={CHINA_SOUTH_SEA.box.w}
               height={CHINA_SOUTH_SEA.box.h}
-              fill="#fbfbfa"
-              stroke="#e2e2dd"
               strokeWidth="1"
               rx="3"
+              style={{ fill: 'var(--surface)', stroke: 'var(--line)' }}
             />
             <path d={CHINA_SOUTH_SEA.d} />
             <text
               x={CHINA_SOUTH_SEA.box.x + CHINA_SOUTH_SEA.box.w / 2}
               y={CHINA_SOUTH_SEA.box.y + CHINA_SOUTH_SEA.box.h - 5}
               textAnchor="middle"
-              fill="#6b6b70"
               fontSize="13"
+              style={{ fill: 'var(--muted)' }}
             >
               南海诸岛
             </text>

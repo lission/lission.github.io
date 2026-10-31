@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  /* Brand / surface palette (full-color vars, used directly in CSS & SVG). */
   --paper: #fbfbfa;
   --ink: #1c1c1e;
   --muted: #6b6b70;
@@ -12,8 +13,64 @@
   --surface: #ffffff;
   --surface-soft: #f3f3f1;
   --on-accent: #ffffff;
+
+  /* RGB-channel mirrors so Tailwind opacity modifiers (border-accent/40, etc.)
+     resolve correctly. Keep these in sync with the full-color vars above. */
+  --paper-rgb: 251 251 250;
+  --ink-rgb: 28 28 30;
+  --muted-rgb: 107 107 112;
+  --accent-rgb: 47 179 109;
+  --accent-ink-rgb: 21 127 71;
+  --surface-rgb: 255 255 255;
+  --surface-soft-rgb: 243 243 241;
+  --on-accent-rgb: 255 255 255;
+
+  /* Component-level themed tokens. */
+  --border-hover: rgba(0, 0, 0, 0.16);
+  --accent-soft: rgba(47, 179, 109, 0.14);
+  --map-seam: #ffffff;
+  --map-empty: #e4e4de;
+  --map-empty-hover: #d8d8d2;
+  --map-inset: #adada7;
+  --map-title-bg: rgba(255, 255, 255, 0.9);
+  --map-label-shadow: rgba(255, 255, 255, 0.8);
+
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
+}
+
+/* Dark theme: Hop-style near-black canvas with a brighter brand green so the
+   accents stay legible on dark surfaces. Everything above is overridden here. */
+[data-theme='dark'] {
+  --paper: #0d0f0e;
+  --ink: #eceeed;
+  --muted: #9aa29d;
+  --line: rgba(255, 255, 255, 0.10);
+  --accent: #34c878;
+  --accent-ink: #5fe0a0;
+  --surface: #15181a;
+  --surface-soft: #1d2123;
+  --on-accent: #06231a;
+
+  --paper-rgb: 13 15 14;
+  --ink-rgb: 236 238 237;
+  --muted-rgb: 154 162 157;
+  --accent-rgb: 52 200 120;
+  --accent-ink-rgb: 95 224 160;
+  --surface-rgb: 21 24 26;
+  --surface-soft-rgb: 29 33 35;
+  --on-accent-rgb: 6 35 26;
+
+  --border-hover: rgba(255, 255, 255, 0.22);
+  --accent-soft: rgba(52, 200, 120, 0.16);
+  --map-seam: #15181a;
+  --map-empty: #232829;
+  --map-empty-hover: #2c3032;
+  --map-inset: #4a5150;
+  --map-title-bg: rgba(21, 24, 26, 0.9);
+  --map-label-shadow: rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
 }
 
 @font-face {
@@ -66,7 +123,7 @@ hr {
 }
 
 .card:hover {
-  border-color: rgba(0, 0, 0, 0.16);
+  border-color: var(--border-hover);
   box-shadow: var(--shadow-card, 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px -12px rgba(20, 40, 80, 0.12));
 }
 
@@ -132,20 +189,20 @@ hr {
   background-color: rgba(47, 179, 109, 0.22);
 }
 
-/* Province footprint map (src/components/FootprintMap).  Thin white seams keep
+/* Province footprint map (src/components/FootprintMap).  Thin seams keep
    neighbouring provinces readable; visited land picks up the brand green. */
 .footprint-map > path {
-  stroke: #ffffff;
+  stroke: var(--map-seam);
   stroke-width: 1.1;
   transition: fill 200ms var(--ease);
 }
 
 .footprint-map > path.is-empty {
-  fill: #e4e4de;
+  fill: var(--map-empty);
 }
 
 .footprint-map > path.is-empty:hover {
-  fill: #d8d8d2;
+  fill: var(--map-empty-hover);
 }
 
 .footprint-map > path.is-visited {
@@ -156,11 +213,11 @@ hr {
   fill: var(--accent-ink);
 }
 
-/* South China Sea inset: islands only, so keep them a readable grey speck
+/* South China Sea inset: islands only, so keep them a readable speck
    instead of the near-invisible white seam used between provinces. */
 .footprint-map-inset path {
-  fill: #adada7;
-  stroke: #adada7;
+  fill: var(--map-inset);
+  stroke: var(--map-inset);
   stroke-width: 1;
 }
 

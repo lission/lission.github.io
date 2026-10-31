@@ -110,6 +110,14 @@ export const MoonIcon = ({ size = 20, className }: IconProps) => (
   </svg>
 );
 
+export const MonitorIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <rect width="20" height="14" x="2" y="3" rx="2" />
+    <path d="M8 21h8" />
+    <path d="M12 17v4" />
+  </svg>
+);
+
 export const BuildingIcon = ({ size = 20, className }: IconProps) => (
   <svg {...svgProps(size, className)}>
     <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />

@@ -3,6 +3,7 @@ import React, {useRef, useCallback, useState, useEffect} from 'react';
 import Map, {Layer, Source, FullscreenControl, NavigationControl, MapRef} from 'react-map-gl';
 import {MapInstance} from "react-map-gl/src/types/lib";
 import useActivities from '@/hooks/useActivities';
+import { useTheme } from '@/hooks/useTheme';
 import {
   MAP_LAYER_LIST,
   IS_CHINESE,
@@ -44,6 +45,15 @@ const RunMap = ({
   flyTarget,
 }: IRunMapProps) => {
   const { countries, provinces } = useActivities();
+  const { resolved } = useTheme();
+  const isDark = resolved === 'dark';
+  // Mapbox basemap + overlay tints follow the active theme.
+  const mapStyle = isDark
+    ? 'mapbox://styles/mapbox/dark-v11'
+    : 'mapbox://styles/mapbox/light-v11';
+  const provinceFill = isDark ? 'rgba(52, 200, 120, 0.22)' : PROVINCE_FILL_COLOR;
+  const countryFill = isDark ? 'rgba(52, 200, 120, 0.10)' : COUNTRY_FILL_COLOR;
+  const lineColor = isDark ? '#34c878' : '#2fb36d';
   const mapRef = useRef<MapRef>();
   const [lights, setLights] = useState(PRIVACY_MODE ? false : LIGHTS_ON);
   const keepWhenLightsOff = ['runs2']
@@ -68,7 +78,9 @@ const RunMap = ({
     });
   }, [flyTarget]);
   function switchLayerVisibility(map: MapInstance, lights: boolean) {
+    if (!map) return;
     const styleJson = map.getStyle();
+    if (!styleJson || !styleJson.layers) return;
     styleJson.layers.forEach((it: { id: string; }) => {
       if (!keepWhenLightsOff.includes(it.id)) {
         if (lights)
@@ -79,29 +91,36 @@ const RunMap = ({
     })
   }
   const mapRefCallback = useCallback(
-    (ref: MapRef) => {
-      if (ref !== null) {
-        const map = ref.getMap();
-        if (map && IS_CHINESE) {
-            map.addControl(new MapboxLanguage({defaultLanguage: 'zh-Hans'}));
+    (ref: MapRef | null) => {
+      // ref === null means the map is unmounting (e.g. on theme remount).
+      // Clear the stale handle so we never touch a teardown-in-progress map.
+      if (ref === null) {
+        mapRef.current = null;
+        return;
+      }
+      const map = ref.getMap();
+      // Keep the handle live synchronously so flyTo / lights effects work.
+      mapRef.current = ref;
+      if (map && IS_CHINESE) {
+        map.addControl(new MapboxLanguage({ defaultLanguage: 'zh-Hans' }));
+      }
+      map.on('style.load', () => {
+        if (!ROAD_LABEL_DISPLAY) {
+          MAP_LAYER_LIST.forEach((layerId) => {
+            if (map.getLayer(layerId)) map.removeLayer(layerId);
+          });
         }
-        map.on('style.load', () => {
-          if (!ROAD_LABEL_DISPLAY) {
-            MAP_LAYER_LIST.forEach((layerId) => {
-              map.removeLayer(layerId);
-            });
-          }
-          mapRef.current = ref;
-          switchLayerVisibility(map, lights);
-        });
-      }
-      if (mapRef.current) {
-        const map = mapRef.current.getMap();
         switchLayerVisibility(map, lights);
-      }
+      });
     },
-    [mapRef, lights]
+    [lights]
   );
+  // Re-apply layer visibility whenever lights toggle (current mounted map only).
+  useEffect(() => {
+    if (mapRef.current) {
+      switchLayerVisibility(mapRef.current.getMap(), lights);
+    }
+  }, [lights]);
   const filterProvinces = provinces.slice();
   const filterCountries = countries.slice();
   filterProvinces.unshift('in', 'name');
@@ -146,13 +165,14 @@ const RunMap = ({
   };
 
   return (
-    <div className="bg-white/40 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-white/60 h-full flex flex-col">
+    <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-line h-full flex flex-col">
       <div className="flex-1 min-h-0 rounded-xl overflow-hidden">
       <Map
         {...viewState}
         onMove={onMove}
         style={style}
-        mapStyle="mapbox://styles/mapbox/light-v11"
+        mapStyle={mapStyle}
+        key={resolved}
         ref={mapRefCallback}
         mapboxAccessToken={MAPBOX_TOKEN}
       >
@@ -162,7 +182,7 @@ const RunMap = ({
             id="province"
             type="fill"
             paint={{
-              'fill-color': PROVINCE_FILL_COLOR,
+              'fill-color': provinceFill,
               'fill-opacity': 0.6,
             }}
             filter={filterProvinces}
@@ -171,7 +191,7 @@ const RunMap = ({
             id="countries"
             type="fill"
             paint={{
-              'fill-color': COUNTRY_FILL_COLOR,
+              'fill-color': countryFill,
               'fill-opacity': 0.4,
             }}
             filter={filterCountries}
@@ -180,7 +200,7 @@ const RunMap = ({
             id="runs2"
             type="line"
             paint={{
-              'line-color': '#2fb36d',
+              'line-color': lineColor,
               'line-width': isBigMap && lights ? 1.5 : 2.5,
               'line-dasharray': dash,
               'line-opacity': isSingleRun || isBigMap || !lights ? 1 : LINE_OPACITY,
