@@ -47,7 +47,9 @@ class GithubDrawer(TracksDrawer):
             raise PosterError("No tracks to draw")
         year_size = YEAR_SIZE
         year_style = f"font-size:{year_size}px; font-family:{FONT}; font-weight:600;"
-        year_length_style = f"font-size:{110 * 3.0 / 80.0}px; font-family:{FONT}; font-weight:600;"
+        year_length_style = (
+            f"font-size:{110 * 3.0 / 80.0}px; font-family:{FONT}; font-weight:600;"
+        )
         month_names_style = f"font-size:{MONTH_SIZE}px; font-family:{FONT};"
         total_length_year_dict = self.poster.total_length_year_dict
 

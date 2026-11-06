@@ -122,10 +122,7 @@ class CircularDrawer(TracksDrawer):
             f"dominant-baseline: central; font-size:{min_size * 4.0 / 80.0}px; "
             f"font-family:{FONT}; font-weight:600;"
         )
-        month_style = (
-            f"font-size:{min_size * 3.0 / 80.0}px; "
-            f"font-family:{FONT};"
-        )
+        month_style = f"font-size:{min_size * 3.0 / 80.0}px; " f"font-family:{FONT};"
 
         dr.add(
             dr.text(

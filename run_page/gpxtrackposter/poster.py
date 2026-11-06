@@ -49,7 +49,9 @@ class Poster:
         self.length_range = None
         self.length_range_by_date = None
         self.units = "metric"
-        self.hide_chrome = False  # when True, skip the in-SVG header/footer (web embeds)
+        self.hide_chrome = (
+            False  # when True, skip the in-SVG header/footer (web embeds)
+        )
         # Hop-style palette: paper/transparent surface, ink text, single restrained
         # green intensity scale (light mint -> brand green), deep green for long runs.
         self.colors = {

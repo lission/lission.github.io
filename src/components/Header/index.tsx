@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import useSiteMetadata from '@/hooks/useSiteMetadata';
 import ThemeToggle from '@/components/ThemeToggle';
+import { prefetchForPath } from '@/routePrefetch';
 
 const Divider = () => <span className="h-4 w-px shrink-0 bg-line" aria-hidden="true" />;
 
@@ -30,6 +31,9 @@ const Header = () => {
               !external &&
               (pathname === item.url ||
                 (item.url !== '/' && pathname.startsWith(`${item.url}/`)));
+            // 指针/键盘/触摸接触时提前取回该路由的页面 chunk 与内容索引，
+            // 点击时动态 import 直接命中模块缓存。
+            const warm = () => prefetchForPath(item.url);
             return (
               <Fragment key={item.url}>
                 <Divider />
@@ -42,6 +46,9 @@ const Header = () => {
                     to={item.url}
                     className={linkClass(active)}
                     aria-current={active ? 'page' : undefined}
+                    onMouseEnter={warm}
+                    onFocus={warm}
+                    onTouchStart={warm}
                   >
                     {item.name}
                   </Link>

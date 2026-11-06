@@ -119,10 +119,6 @@ hr {
   margin: 1.5rem 0;
 }
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
 /* Hop-style card: white surface, hairline border, restrained radius. No heavy shadow. */
 .card {
   background-color: var(--surface);

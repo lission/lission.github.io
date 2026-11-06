@@ -195,14 +195,22 @@ def main():
         f.write(
             "// Contract: run `python run_page/gen_china_map.py --input <geojson>`.\n\n"
         )
-        f.write(f"export const CHINA_MAP_VIEWBOX = '0 0 {fmt(VIEW_W)} {fmt(height)}';\n\n")
-        f.write("export interface ChinaProvince {\n  name: string;\n  d: string;\n}\n\n")
+        f.write(
+            f"export const CHINA_MAP_VIEWBOX = '0 0 {fmt(VIEW_W)} {fmt(height)}';\n\n"
+        )
+        f.write(
+            "export interface ChinaProvince {\n  name: string;\n  d: string;\n}\n\n"
+        )
         f.write("export const CHINA_PROVINCES: ChinaProvince[] = [\n")
         for name, d in paths:
             f.write(f"  {{ name: '{name}', d: '{d}' }},\n")
         f.write("];\n\n")
-        f.write("// South China Sea islands, drawn as a framed inset (standard practice\n")
-        f.write("// for Chinese maps) so the mainland is not surrounded by empty water.\n")
+        f.write(
+            "// South China Sea islands, drawn as a framed inset (standard practice\n"
+        )
+        f.write(
+            "// for Chinese maps) so the mainland is not surrounded by empty water.\n"
+        )
         f.write("export const CHINA_SOUTH_SEA = {\n")
         f.write(f"  d: '{south_sea_path}',\n")
         f.write(

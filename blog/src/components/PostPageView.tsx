@@ -16,14 +16,17 @@ interface PostPageViewProps {
 const PostPageView = ({ slug, type, backTo, backLabel }: PostPageViewProps) => {
   const location = useLocation();
   const state = useContent(async () => {
-    const page = await loadPage(slug);
+    const [page, readingPosts, notesIndex] = await Promise.all([
+      loadPage(slug),
+      type === 'reading' ? loadIndex<ReadingPost[]>('reading') : Promise.resolve(null),
+      type === 'note' ? loadIndex<NotesIndex>('notes') : Promise.resolve(null),
+    ]);
     if (!page || page.type !== type) return null;
-    if (type === 'reading') {
-      const posts = await loadIndex<ReadingPost[]>('reading');
-      return { page, meta: posts.find((post) => post.slug === slug) ?? null };
-    }
-    const notes = await loadIndex<NotesIndex>('notes');
-    return { page, meta: notes.posts.find((post) => post.slug === slug) ?? null };
+    const meta =
+      type === 'reading'
+        ? (readingPosts?.find((post) => post.slug === slug) ?? null)
+        : (notesIndex?.posts.find((post) => post.slug === slug) ?? null);
+    return { page, meta };
   }, [slug, type]);
 
   useEffect(() => {
