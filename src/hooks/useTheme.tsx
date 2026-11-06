@@ -16,7 +16,7 @@ type ThemeContextValue = {
   mode: ThemeMode;
   /** The actually-applied theme (alias of mode; kept for consumers). */
   resolved: ResolvedTheme;
-  setMode: (mode: ThemeMode) => void;
+  setMode: (_mode: ThemeMode) => void;
   /** Toggle light <-> dark. */
   toggle: () => void;
 };
@@ -29,10 +29,18 @@ function readStored(): ThemeMode {
   return v === 'dark' ? 'dark' : 'light';
 }
 
+let releaseTimer: number | undefined;
+
 function applyTheme(theme: ResolvedTheme) {
   const root = document.documentElement;
+  // 切换瞬间禁用颜色过渡，避免各元素各自渐变、与瞬时切换的卡片不同步。
+  root.dataset.themeSwitching = '';
   root.dataset.theme = theme;
   root.style.colorScheme = theme;
+  window.clearTimeout(releaseTimer);
+  releaseTimer = window.setTimeout(() => {
+    delete root.dataset.themeSwitching;
+  }, 80);
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

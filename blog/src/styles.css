@@ -1,0 +1,366 @@
+/* 博客域排版：只作用于 .post-content / .post-toc-inline，避免影响跑步页组件。 */
+
+.post-content {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+
+.post-content > :first-child {
+  margin-top: 0;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 2rem 0 0.85rem;
+  scroll-margin-top: 90px;
+}
+
+.post-content h1 {
+  font-size: 1.6rem;
+}
+.post-content h2 {
+  font-size: 1.35rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.4rem;
+}
+.post-content h3 {
+  font-size: 1.15rem;
+}
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  font-size: 1rem;
+}
+
+.post-content p {
+  margin: 0 0 1.1rem;
+}
+
+.post-content a {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.post-content a:hover {
+  color: var(--accent);
+}
+
+.post-content strong {
+  font-weight: 700;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1.2rem;
+  padding-left: 1.5rem;
+}
+
+.post-content ul {
+  list-style: disc;
+}
+.post-content ol {
+  list-style: decimal;
+}
+.post-content li {
+  margin: 0.3rem 0;
+}
+.post-content li > ul,
+.post-content li > ol {
+  margin: 0.35rem 0 0.35rem;
+  list-style: circle;
+}
+
+.post-content blockquote {
+  margin: 0 0 1.3rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface-soft);
+  color: var(--muted);
+}
+
+.post-content hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+.post-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--surface-soft);
+  border-radius: 5px;
+  padding: 0.1rem 0.35rem;
+}
+
+.post-content pre {
+  margin: 0 0 1.4rem;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  line-height: 1.7;
+}
+
+.post-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.post-content img {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+.post-content ruby {
+  ruby-position: over;
+}
+.post-content rt {
+  font-size: 0.62em;
+  color: var(--muted);
+  transform: translateY(0.15em);
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.post-content th,
+.post-content td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+.post-content th {
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.post-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.4rem;
+}
+
+.post-toc-inline {
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+.post-toc-inline .post-toc-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.post-toc-inline ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+}
+.post-toc-inline li {
+  margin: 0.15rem 0;
+  font-size: 0.85rem;
+}
+.post-toc-inline a {
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+.post-toc-inline a:hover {
+  text-decoration: underline;
+}
+
+/* 书单表格：沿用 .card 容器，仅补充表头与斑马纹。 */
+/* 表头字号/字重/字距由 Tailwind 类控制，这里只保留主题色与行交互。 */
+.books-table th {
+  color: var(--muted);
+}
+.books-table td {
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+.books-table tbody tr {
+  transition: background-color 0.2s var(--ease);
+}
+.books-table tbody tr:hover {
+  background: var(--surface-soft);
+}
+
+/* 侧栏 / 抽屉滚动区：保留滚轮滚动，只是不绘制系统滚动条。 */
+.blog-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.blog-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 阅读笔记表格：与跑步页「最近跑步记录」同构的通用表头、斑马纹与行入场。
+   全部限定在 .reading-table 内，不影响其它页面。 */
+.reading-table {
+  width: 100%;
+  font-variant: tabular-nums;
+}
+
+.reading-table thead {
+  color: var(--accent-ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.reading-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+
+.reading-table thead th:last-child,
+.reading-table tbody td:last-child {
+  text-align: right;
+}
+
+/* 日期表头：默认降序，点击在降序 / 升序之间切换。 */
+.reading-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color 0.2s var(--ease);
+}
+.reading-sort-button:hover {
+  color: var(--accent);
+}
+.reading-sort-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.reading-sort-mark {
+  font-size: 0.85em;
+  opacity: 0.35;
+}
+.reading-table thead th[aria-sort='ascending'] .reading-sort-mark,
+.reading-table thead th[aria-sort='descending'] .reading-sort-mark {
+  opacity: 1;
+}
+
+.reading-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease);
+  animation: readingRowIn 0.45s var(--ease) both;
+}
+
+.reading-table tbody tr:nth-child(odd) {
+  background-color: var(--surface);
+}
+.reading-table tbody tr:nth-child(even) {
+  background-color: var(--surface-soft);
+}
+.reading-table tbody tr:hover,
+.reading-table tbody tr:focus-visible {
+  background-color: var(--accent-soft);
+}
+.reading-table tbody tr:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.reading-table tbody td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+  vertical-align: middle;
+}
+.reading-table tbody td:first-child {
+  color: var(--ink);
+}
+.reading-table tbody td.reading-date-cell {
+  white-space: nowrap;
+}
+
+/* 与跑步页一致：窄屏隐藏作者/日期列后，把它们以内联小字补回名称列。 */
+.reading-meta-inline {
+  display: none;
+}
+
+@keyframes readingRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reading-table tbody tr:nth-child(1) {
+  animation-delay: 0.04s;
+}
+.reading-table tbody tr:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.reading-table tbody tr:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.reading-table tbody tr:nth-child(4) {
+  animation-delay: 0.16s;
+}
+.reading-table tbody tr:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.reading-table tbody tr:nth-child(n + 6) {
+  animation-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-table tbody tr {
+    animation: none;
+  }
+}
+
+/* 窄屏只保留名称与分组两列，作者与日期内联到名称下方。 */
+@media only screen and (max-width: 700px) {
+  .reading-table thead th,
+  .reading-table tbody td {
+    padding: 0.6rem 0.75rem;
+  }
+  .reading-table thead th:nth-child(2),
+  .reading-table tbody td:nth-child(2),
+  .reading-table thead th:nth-child(4),
+  .reading-table tbody td:nth-child(4),
+  .reading-table thead th:nth-child(5),
+  .reading-table tbody td:nth-child(5) {
+    display: none;
+  }
+  .reading-meta-inline {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+}

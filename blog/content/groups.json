@@ -1,0 +1,32 @@
+[
+  {
+    "id": "人生",
+    "label": "人生",
+    "count": 15,
+    "order": 1
+  },
+  {
+    "id": "历史",
+    "label": "历史",
+    "count": 7,
+    "order": 2
+  },
+  {
+    "id": "大理",
+    "label": "大理",
+    "count": 1,
+    "order": 3
+  },
+  {
+    "id": "小说",
+    "label": "小说",
+    "count": 8,
+    "order": 4
+  },
+  {
+    "id": "杂记",
+    "label": "杂记",
+    "count": 5,
+    "order": 5
+  }
+]

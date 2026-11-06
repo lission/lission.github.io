@@ -5,16 +5,22 @@ import Header from '@/components/Header';
 import useSiteMetadata from '@/hooks/useSiteMetadata';
 import styles from './style.module.css';
 
-const Layout = ({ children }: React.PropsWithChildren) => {
-  const { siteTitle, description } = useSiteMetadata();
+type LayoutProps = React.PropsWithChildren<{
+  /** 博客页面可覆盖标题；跑步首页保持原有默认标题不变。 */
+  title?: string;
+  description?: string;
+}>;
+
+const Layout = ({ children, title, description: descriptionOverride }: LayoutProps) => {
+  const { siteTitle, shortTitle, description } = useSiteMetadata();
 
   return (
     <>
       <Helmet bodyAttributes={{ class: styles.body }}>
         <html lang="zh-CN" />
-        <title>{siteTitle}</title>
-        <meta name="description" content={description} />
-        <meta name="keywords" content="running, 跑步, 跑步日记" />
+        <title>{title ? `${title} · ${shortTitle}` : siteTitle}</title>
+        <meta name="description" content={descriptionOverride ?? description} />
+        <meta name="keywords" content="跑步, 阅读, 随笔, 书单, 生活的另外部分, Lission" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -30,6 +36,8 @@ const Layout = ({ children }: React.PropsWithChildren) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
 
 export default Layout;

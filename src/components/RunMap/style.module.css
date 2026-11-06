@@ -1,3 +1,24 @@
+/* 主题切换时盖住 Mapbox 重载样式的中间帧，等新底图渲染完成后淡出。 */
+.mapCover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--paper);
+  transition: opacity 0.22s var(--ease);
+}
+.mapCoverOn {
+  opacity: 1;
+  transition: none;
+}
+/* 年份、灯光等自定义控件保持在遮罩之上，切换时不消失。 */
+.buttons,
+.lights,
+.runTitle {
+  z-index: 2;
+}
+
 .locationSVG {
   height: 100%;
   width: 100%;

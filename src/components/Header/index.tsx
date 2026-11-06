@@ -1,39 +1,59 @@
-import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import useSiteMetadata from '@/hooks/useSiteMetadata';
 import ThemeToggle from '@/components/ThemeToggle';
 
+const Divider = () => <span className="h-4 w-px shrink-0 bg-line" aria-hidden="true" />;
+
+const linkClass = (active: boolean) =>
+  'text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 ' +
+  (active ? 'text-accentInk' : 'text-muted hover:text-accentInk');
+
 const Header = () => {
-  const { logo, siteUrl, navLinks } = useSiteMetadata();
+  const { logo, siteTitle, navLinks } = useSiteMetadata();
+  const { pathname } = useLocation();
+  const links = [{ name: '跑步', url: '/' }, ...navLinks];
 
   return (
-    <header className="flex justify-center pt-5 pb-3">
-      <div className="nav-pill inline-flex items-center gap-3 rounded-full border border-line bg-surface px-4 py-2 shadow-sm">
-        <Link to={siteUrl} className="flex items-center gap-2.5">
+    <header className="flex justify-center px-3 pt-5 pb-3">
+      <div className="nav-pill inline-flex min-w-0 max-w-full items-center gap-2 overflow-x-auto rounded-full border border-line bg-surface px-3 py-2 shadow-sm [&::-webkit-scrollbar]:hidden [scrollbar-width:none] sm:gap-3 sm:px-4">
+        <Link to="/" className="flex shrink-0 items-center">
           <picture>
-            <img
-              className="h-8 w-8 shrink-0"
-              alt="logo"
-              src={logo}
-            />
+            <img className="h-8 w-8 shrink-0" alt="logo" src={logo} />
           </picture>
-          <h1 className="font-sans text-lg font-bold text-ink leading-none">
-            跑步日记
-          </h1>
+          <h1 className="sr-only">{siteTitle}</h1>
         </Link>
-        <span className="h-5 w-px bg-line" aria-hidden="true" />
-        <nav className="flex items-center gap-5 font-semibold">
-          {navLinks.map((n, i) => (
-            <a
-              key={i}
-              href={n.url}
-              className="text-sm text-muted hover:text-accentInk transition-all duration-200 hover:-translate-y-0.5"
-            >
-              {n.name}
-            </a>
-          ))}
+        <nav className="flex items-center gap-2.5 font-semibold sm:gap-3">
+          {links.map((item) => {
+            const external = /^https?:\/\//.test(item.url);
+            const active =
+              !external &&
+              (pathname === item.url ||
+                (item.url !== '/' && pathname.startsWith(`${item.url}/`)));
+            return (
+              <Fragment key={item.url}>
+                <Divider />
+                {external ? (
+                  <a href={item.url} target="_blank" rel="noreferrer" className={linkClass(active)}>
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.url}
+                    className={linkClass(active)}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </Fragment>
+            );
+          })}
         </nav>
-        <span className="h-5 w-px bg-line" aria-hidden="true" />
-        <ThemeToggle />
+        <Divider />
+        <div className="shrink-0">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

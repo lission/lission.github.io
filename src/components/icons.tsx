@@ -149,3 +149,36 @@ export const ChevronRightIcon = ({ size = 20, className }: IconProps) => (
     <path d="m9 18 6-6-6-6" />
   </svg>
 );
+
+export const BookOpenIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z" />
+    <path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z" />
+  </svg>
+);
+
+export const FeatherIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+    <path d="M16 8 2 22" />
+    <path d="M17.5 15H9" />
+  </svg>
+);
+
+export const ListChecksIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <path d="m3 17 2 2 4-4" />
+    <path d="m3 7 2 2 4-4" />
+    <path d="M13 6h8" />
+    <path d="M13 12h8" />
+    <path d="M13 18h8" />
+  </svg>
+);
+
+export const InfoIcon = ({ size = 20, className }: IconProps) => (
+  <svg {...svgProps(size, className)}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 16v-4" />
+    <path d="M12 8h.01" />
+  </svg>
+);

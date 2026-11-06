@@ -1,0 +1,362 @@
+[
+  {
+    "type": "reading",
+    "slug": "东方学术概观",
+    "title": "东方学术概观",
+    "group": "人生",
+    "tags": [],
+    "date": "2023-09-09",
+    "author": "梁漱溟",
+    "source": "01-readnotes/人生/东方学术概观.md"
+  },
+  {
+    "type": "reading",
+    "slug": "中国文化要义",
+    "title": "中国文化要义",
+    "group": "人生",
+    "tags": [],
+    "date": "2022-04-03",
+    "author": "梁漱溟",
+    "source": "01-readnotes/人生/中国文化要义.md"
+  },
+  {
+    "type": "reading",
+    "slug": "二程遗书",
+    "title": "二程遗书",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-08-26",
+    "author": "程颢、程颐",
+    "source": "01-readnotes/人生/二程遗书.md"
+  },
+  {
+    "type": "reading",
+    "slug": "传习录",
+    "title": "传习录",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-12-07",
+    "author": "王阳明",
+    "source": "01-readnotes/人生/传习录.md"
+  },
+  {
+    "type": "reading",
+    "slug": "佛陀和原始佛教思想",
+    "title": "佛陀和原始佛教思想",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-09-02",
+    "author": "郭良鋆",
+    "source": "01-readnotes/人生/佛陀和原始佛教思想.md"
+  },
+  {
+    "type": "reading",
+    "slug": "宋明理学概述",
+    "title": "宋明理学概述",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-06-19",
+    "author": "钱穆",
+    "source": "01-readnotes/人生/宋明理学概述.md"
+  },
+  {
+    "type": "reading",
+    "slug": "康斋集-日录",
+    "title": "康斋集·日录",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-06-20",
+    "author": "吴与弼(明)",
+    "source": "01-readnotes/人生/康斋集·日录.md"
+  },
+  {
+    "type": "reading",
+    "slug": "当我谈跑步时-我在谈些什么",
+    "title": "当我谈跑步时，我在谈些什么",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-04-12",
+    "author": "村上春树",
+    "source": "01-readnotes/人生/当我谈跑步时，我在谈些什么.md"
+  },
+  {
+    "type": "reading",
+    "slug": "未来简史",
+    "title": "未来简史",
+    "group": "人生",
+    "tags": [],
+    "date": "2022-09-26",
+    "author": "尤瓦尔·赫拉利(以色列)",
+    "source": "01-readnotes/人生/未来简史.md"
+  },
+  {
+    "type": "reading",
+    "slug": "王蒙写给年轻人的中国智慧",
+    "title": "王蒙写给年轻人的中国智慧",
+    "group": "人生",
+    "tags": [],
+    "date": "2023-03-13",
+    "author": "王蒙",
+    "source": "01-readnotes/人生/王蒙写给年轻人的中国智慧.md"
+  },
+  {
+    "type": "reading",
+    "slug": "禅与摩托车维修艺术",
+    "title": "禅与摩托车维修艺术",
+    "group": "人生",
+    "tags": [],
+    "date": "2015-10-27",
+    "author": "罗伯特·M·波西格",
+    "source": "01-readnotes/人生/禅与摩托车维修艺术.md"
+  },
+  {
+    "type": "reading",
+    "slug": "荒野寒山",
+    "title": "荒野寒山",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-05-28",
+    "author": "何善蒙",
+    "source": "01-readnotes/人生/荒野寒山.md"
+  },
+  {
+    "type": "reading",
+    "slug": "论语",
+    "title": "论语",
+    "group": "人生",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/人生/论语.md"
+  },
+  {
+    "type": "reading",
+    "slug": "近思录",
+    "title": "近思录",
+    "group": "人生",
+    "tags": [],
+    "date": "2024-07-05",
+    "author": "朱熹/吕祖谦(编)",
+    "source": "01-readnotes/人生/近思录.md"
+  },
+  {
+    "type": "reading",
+    "slug": "这个世界会好吗-梁漱溟",
+    "title": "这个世界会好吗-梁漱溟",
+    "group": "人生",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/人生/这个世界会好吗-梁漱溟.md"
+  },
+  {
+    "type": "reading",
+    "slug": "三民主义",
+    "title": "三民主义",
+    "group": "历史",
+    "tags": [],
+    "date": "2024-04-10",
+    "author": "孙中山",
+    "source": "01-readnotes/历史/三民主义.md"
+  },
+  {
+    "type": "reading",
+    "slug": "乡土中国",
+    "title": "乡土中国",
+    "group": "历史",
+    "tags": [],
+    "date": "2024-07-17",
+    "author": "费孝通(美)",
+    "source": "01-readnotes/历史/乡土中国.md"
+  },
+  {
+    "type": "reading",
+    "slug": "先秦史",
+    "title": "先秦史",
+    "group": "历史",
+    "tags": [],
+    "date": "2024-09-21",
+    "author": "吕思勉",
+    "source": "01-readnotes/历史/先秦史.md"
+  },
+  {
+    "type": "reading",
+    "slug": "全球通史",
+    "title": "全球通史",
+    "group": "历史",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/历史/全球通史.md"
+  },
+  {
+    "type": "reading",
+    "slug": "国史新论",
+    "title": "国史新论",
+    "group": "历史",
+    "tags": [],
+    "date": "2024-03-15",
+    "author": "钱穆",
+    "source": "01-readnotes/历史/国史新论.md"
+  },
+  {
+    "type": "reading",
+    "slug": "西周史",
+    "title": "西周史",
+    "group": "历史",
+    "tags": [],
+    "date": "2025-09-12",
+    "author": "许倬云",
+    "source": "01-readnotes/历史/西周史.md"
+  },
+  {
+    "type": "reading",
+    "slug": "赫逊河畔谈中国历史",
+    "title": "赫逊河畔谈中国历史",
+    "group": "历史",
+    "tags": [],
+    "date": "2024-01-10",
+    "author": "黄仁宇(美)",
+    "source": "01-readnotes/历史/赫逊河畔谈中国历史.md"
+  },
+  {
+    "type": "reading",
+    "slug": "大理史话",
+    "title": "大理史话",
+    "group": "大理",
+    "tags": [],
+    "date": "2026-10-13",
+    "author": "施立卓(编)",
+    "source": "01-readnotes/大理/大理史话.md"
+  },
+  {
+    "type": "reading",
+    "slug": "十八岁出门远行",
+    "title": "十八岁出门远行",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-12-09",
+    "author": "余华",
+    "source": "01-readnotes/小说/十八岁出门远行.md"
+  },
+  {
+    "type": "reading",
+    "slug": "在细雨中呼喊",
+    "title": "在细雨中呼喊",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-12-12",
+    "author": "余华",
+    "source": "01-readnotes/小说/在细雨中呼喊.md"
+  },
+  {
+    "type": "reading",
+    "slug": "契诃夫戏剧",
+    "title": "契诃夫戏剧",
+    "group": "小说",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/小说/契诃夫戏剧.md"
+  },
+  {
+    "type": "reading",
+    "slug": "悉达多",
+    "title": "悉达多",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-04-14",
+    "author": "赫尔曼·黑塞(德)",
+    "source": "01-readnotes/小说/悉达多.md"
+  },
+  {
+    "type": "reading",
+    "slug": "我在北京送快递",
+    "title": "我在北京送快递",
+    "group": "小说",
+    "tags": [],
+    "date": "2026-10-25",
+    "author": "胡安焉",
+    "source": "01-readnotes/小说/我在北京送快递.md"
+  },
+  {
+    "type": "reading",
+    "slug": "荒原狼",
+    "title": "荒原狼",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-06-28",
+    "author": "赫尔曼·黑塞(德)",
+    "source": "01-readnotes/小说/荒原狼.md"
+  },
+  {
+    "type": "reading",
+    "slug": "许三观卖血记",
+    "title": "许三观卖血记",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-12-17",
+    "author": "余华",
+    "source": "01-readnotes/小说/许三观卖血记.md"
+  },
+  {
+    "type": "reading",
+    "slug": "马丁-伊登",
+    "title": "马丁·伊登",
+    "group": "小说",
+    "tags": [],
+    "date": "2024-09-25",
+    "author": "杰克·伦敦(美)",
+    "source": "01-readnotes/小说/马丁·伊登.md"
+  },
+  {
+    "type": "reading",
+    "slug": "教育漫话",
+    "title": "教育漫话",
+    "group": "杂记",
+    "tags": [],
+    "date": "2022-01-06",
+    "author": "约翰·洛克(英国)",
+    "source": "01-readnotes/杂记/教育漫话.md"
+  },
+  {
+    "type": "reading",
+    "slug": "文集摘抄",
+    "title": "文集摘抄",
+    "group": "杂记",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/杂记/文集摘抄.md"
+  },
+  {
+    "type": "reading",
+    "slug": "梦的解析",
+    "title": "梦的解析",
+    "group": "杂记",
+    "tags": [],
+    "date": "2023-06-12",
+    "author": "弗洛伊德",
+    "source": "01-readnotes/杂记/梦的解析.md"
+  },
+  {
+    "type": "reading",
+    "slug": "正面管教",
+    "title": "正面管教",
+    "group": "杂记",
+    "tags": [],
+    "date": "2025-11-10",
+    "author": "简·尼尔森",
+    "source": "01-readnotes/杂记/正面管教.md"
+  },
+  {
+    "type": "reading",
+    "slug": "正面管教读后感",
+    "title": "正面管教读后感",
+    "group": "杂记",
+    "tags": [],
+    "date": null,
+    "author": null,
+    "source": "01-readnotes/杂记/正面管教读后感.md"
+  }
+]

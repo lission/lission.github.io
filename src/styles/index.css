@@ -73,6 +73,16 @@
   color-scheme: dark;
 }
 
+/* 主题切换的短暂窗口内让颜色立即生效，避免带 transition-all/colors 的元素
+   各自渐变、与瞬时切换的 .card 不同步。只关过渡、不关动画，否则 .card 的
+   fadeUp 会在恢复时重播，反而产生新的闪烁。 */
+html[data-theme-switching] *,
+html[data-theme-switching] *::before,
+html[data-theme-switching] *::after {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+}
+
 @font-face {
   font-family: "Geist";
   src: url("/assets/fonts/Geist-Variable.woff2") format("woff2");

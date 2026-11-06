@@ -56,7 +56,18 @@ const RunMap = ({
   const lineColor = isDark ? '#34c878' : '#2fb36d';
   const mapRef = useRef<MapRef>();
   const [lights, setLights] = useState(PRIVACY_MODE ? false : LIGHTS_ON);
+  // 主题切换期间用页面底色盖住地图，等新底图首屏渲染完成后再淡出。
+  const [mapCovered, setMapCovered] = useState(false);
+  const previousResolved = useRef(resolved);
   const keepWhenLightsOff = ['runs2']
+
+  useEffect(() => {
+    if (previousResolved.current === resolved) return undefined;
+    previousResolved.current = resolved;
+    setMapCovered(true);
+    const fallback = window.setTimeout(() => setMapCovered(false), 1200);
+    return () => window.clearTimeout(fallback);
+  }, [resolved]);
 
   // Smoothly fly to a selected run when flyTarget changes (no hard jump).
   useEffect(() => {
@@ -111,6 +122,10 @@ const RunMap = ({
           });
         }
         switchLayerVisibility(map, lights);
+        // 新样式（含主题切换后的底图）首屏渲染完成后撤掉遮罩。
+        const reveal = () => setMapCovered(false);
+        if (map.loaded()) reveal();
+        else map.once('idle', reveal);
       });
     },
     [lights]
@@ -166,13 +181,16 @@ const RunMap = ({
 
   return (
     <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-line h-full flex flex-col">
-      <div className="flex-1 min-h-0 rounded-xl overflow-hidden">
+      <div className="relative flex-1 min-h-0 rounded-xl overflow-hidden">
+      <div
+        aria-hidden="true"
+        className={`${styles.mapCover} ${mapCovered ? styles.mapCoverOn : ''}`}
+      />
       <Map
         {...viewState}
         onMove={onMove}
         style={style}
         mapStyle={mapStyle}
-        key={resolved}
         ref={mapRefCallback}
         mapboxAccessToken={MAPBOX_TOKEN}
       >
