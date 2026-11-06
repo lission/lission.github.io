@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,css}'],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx,css}',
+    './blog/src/**/*.{js,ts,jsx,tsx,css}',
+  ],
   theme: {
     fontFamily: {
       sans: ['Geist', 'LXGW WenKai', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],

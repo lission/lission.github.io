@@ -20,3 +20,6 @@ _site/
 
 config.yaml
 .venv/
+
+# Local tooling metadata (never publish)
+.workbuddy/

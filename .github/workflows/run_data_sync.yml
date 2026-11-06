@@ -29,7 +29,9 @@ on:
       # builds and publishes gh-pages (it restores the cached activity data
       # that the build needs), so without these paths a UI fix is committed and
       # then sits invisible until the next scheduled sync.
+      # Blog domain (blog/**) must also trigger a publish after a notes sync.
       - src/**
+      - blog/**
       - public/**
       - index.html
       - tailwind.config.js
