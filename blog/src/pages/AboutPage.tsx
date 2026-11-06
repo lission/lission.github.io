@@ -11,7 +11,7 @@ const SECTIONS = [
 ];
 
 const AboutPage = () => {
-  const { siteTitle, siteUrl } = useSiteMetadata();
+  const { siteTitle } = useSiteMetadata();
 
   return (
     <BlogPage title="关于" description="关于本站与内容组织方式">
@@ -24,11 +24,17 @@ const AboutPage = () => {
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_260px]">
         <div className="space-y-5">
           <section className="card p-5 sm:p-6">
-            <h2 className="mb-3 text-lg font-bold text-ink">{siteTitle}</h2>
-            <div className="post-content">
-              <p>跑过些路，读了点书，记下日常，试着找寻属于自己的“生活的另外部分”。</p>
-              <p>不存在虚掷光阴、蹉跎岁月，只要是认真度过的日子，最后都不会设有意义，碌碌亦有为。</p>
-              <p>怀着怨恨的人生是不值得过的。</p>
+            <h2 className="text-lg font-bold text-ink">{siteTitle}</h2>
+
+            <div className="mt-5 rounded-2xl px-5 py-5">
+              <p className="text-base leading-8 text-ink">
+                跑过些路，读了点书，记下日常，试着找寻属于自己的
+                <span className="font-semibold text-accentInk">“生活的另外部分”</span>。
+              </p>
+              <div className="mt-4 space-y-3 text-sm leading-8 text-muted">
+                <p>不存在虚掷光阴、蹉跎岁月，只要是认真度过的日子，最后都不会没有意义，碌碌亦有为。</p>
+                <p>怀着怨恨的人生是不值得过的。</p>
+              </div>
             </div>
           </section>
 
@@ -83,9 +89,6 @@ const AboutPage = () => {
                 className="font-semibold text-accentInk hover:underline"
               >
                 笔记仓库 ↗
-              </a>
-              <a href={siteUrl} className="text-muted hover:text-accentInk">
-                {siteUrl}
               </a>
             </div>
           </div>
